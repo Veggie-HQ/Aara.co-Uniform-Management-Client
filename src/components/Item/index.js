@@ -1,9 +1,12 @@
-import { Flex, Image, Text, Box } from "@chakra-ui/react";
+import { Flex, Image, Text, Box, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import { MdCurrencyRupee } from "react-icons/md";
+import ItemModal from "../ItemModal";
 
 const Index = ({ item }) => {
   const { title, price, imageURL } = item;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex
       width="90%"
@@ -15,7 +18,9 @@ const Index = ({ item }) => {
       borderRadius="7pt"
       align="center"
       justify="space-between"
+      onClick={() => onOpen()}
     >
+      <ItemModal isOpen={isOpen} onClose={onClose} item={item} />
       <Flex align="center" justify="center" width="30%">
         <Image src={imageURL} alt={title} width="50px" />
       </Flex>
