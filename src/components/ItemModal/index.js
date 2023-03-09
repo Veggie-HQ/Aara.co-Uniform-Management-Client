@@ -12,8 +12,11 @@ import {
   Select,
   Button,
 } from "@chakra-ui/react";
+import { Quantity } from "@/styles/ProductDetails";
 import { MdCurrencyRupee } from "react-icons/md";
 import { useStateContext } from "@/lib/context";
+import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+import toast from "react-hot-toast";
 
 const Index = ({ isOpen, onClose, item }) => {
   const { title, price, imageURL, color, gender, size } = item;
@@ -25,6 +28,12 @@ const Index = ({ isOpen, onClose, item }) => {
   useEffect(() => {
     resetQuantity();
   }, []);
+
+  const notify = () => {
+    toast.success(`${qty} ${title} added to your cart.`, {
+      duration: 1500,
+    });
+  };
 
   return (
     <>
@@ -42,7 +51,7 @@ const Index = ({ isOpen, onClose, item }) => {
               align="center"
               justify="center"
               direction="column"
-              padding={3}
+              padding={1}
             >
               <Image src={imageURL} alt={title} width="200px" />
 
@@ -83,7 +92,30 @@ const Index = ({ isOpen, onClose, item }) => {
                 ))}
               </Select>
 
-              <Button bg="orange.300" _hover={{ bg: "orange.100" }} mt={4}>
+              <Text mt={4} fontWeight={600}>
+                Quantity
+              </Text>
+              <Quantity>
+                <Flex align="center" justify="space-evenly">
+                  <Button onClick={decreaseQty} mr={2}>
+                    <AiFillMinusCircle />
+                  </Button>
+                  <Text mr={2}>{qty}</Text>
+                  <Button>
+                    <AiFillPlusCircle onClick={increaseQty} />
+                  </Button>
+                </Flex>
+              </Quantity>
+
+              <Button
+                bg="orange.300"
+                _hover={{ bg: "orange.100" }}
+                mt={4}
+                onClick={() => {
+                  onAdd(item, qty);
+                  notify();
+                }}
+              >
                 Add To Cart
               </Button>
             </Flex>

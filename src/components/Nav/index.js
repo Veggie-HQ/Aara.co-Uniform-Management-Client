@@ -24,12 +24,6 @@ export default function Nav() {
     >
       <Flex direction="column" align="center">
         <div onClick={() => setShowUser(true)}>
-          {totalQuantities > 0 && (
-            <motion.span animate={{ scale: 1 }} initial={{ scale: 0 }}>
-              {totalQuantities}
-            </motion.span>
-          )}
-
           <FiUser />
         </div>
         <h3>Profile</h3>

@@ -31,17 +31,16 @@ export const Card = styled(motion.div)`
   background: white;
   padding: 2rem;
   margin: 2rem 0rem;
-
+  width: 100%;
   img {
-    width: 8rem;
+    width: 50px;
   }
 `;
 
 export const CardInfo = styled(motion.div)`
-  width: 50%;
+  width: 60%;
   div {
     display: flex;
-    justify-content: space-between;
   }
 `;
 
@@ -59,16 +58,5 @@ export const EmptyStyle = styled(motion.div)`
   svg {
     font-size: 8rem;
     color: var(--secondary);
-  }
-`;
-
-export const Checkout = styled(motion.div)`
-  button {
-    background: var(--primary);
-    padding: 1rem 2rem;
-    width: 100%;
-    color: white;
-    margin-top: 2rem;
-    cursor: pointer;
   }
 `;

@@ -1,6 +1,7 @@
 // Invoicing starts from 348
 export const LKGUKGData = [
   {
+    slug: "LKGTshirt",
     title: "T Shirts",
     price: 320,
     imageURL: "/assets/tshirt.jpg",
@@ -9,6 +10,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "LKGShorts",
     title: "Shorts",
     price: 425,
     imageURL: "/assets/shorts.jpg",
@@ -16,6 +18,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34"],
   },
   {
+    slug: "LKGSkirts",
     title: "Skirts",
     price: 470,
     imageURL: "/assets/skirts.webp",
@@ -23,6 +26,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34"],
   },
   {
+    slug: "LKGTrackTShirt",
     title: "Track T Shirt",
     price: 650,
     imageURL: "/assets/tshirt.jpg",
@@ -30,6 +34,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34", "36"],
   },
   {
+    slug: "LKGTrackPant",
     title: "Track Pants",
     price: 650,
     imageURL: "/assets/trackpants.jpg",
@@ -37,6 +42,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38"],
   },
   {
+    slug: "LKGWinterJacket",
     title: "Winter Jacket",
     price: 90,
     imageURL: "/assets/jacket.webp",
@@ -44,6 +50,7 @@ export const LKGUKGData = [
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "LKGSocks",
     title: "Socks",
     price: 90,
     imageURL: "/assets/socks.webp",

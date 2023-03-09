@@ -4,14 +4,13 @@ import {
   EmptyStyle,
   CartWrapper,
   CardInfo,
-  Checkout,
 } from "@/styles/CartStyles";
 import { Quantity } from "@/styles/ProductDetails";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
-//Import State
+import { MdCurrencyRupee } from "react-icons/md";
 import { useStateContext } from "@/lib/context";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Image, Text, Box, Button } from "@chakra-ui/react";
 
 export default function Cart() {
   const { cartItems, setShowCart, onAdd, onRemove, totalPrice } =
@@ -67,35 +66,46 @@ export default function Cart() {
                 animate={{ opacity: 1, scale: 1, transition: { delay: 0.4 } }}
                 key={item.slug}
               >
-                <img
-                  src={item.image.data.attributes.formats.small.url}
-                  alt=""
-                />
+                <Image src={item.imageURL} alt={item.title} width="30px" />
                 <CardInfo>
-                  <h3>{item.title}</h3>
-                  <h3>{item.price}$</h3>
+                  <Text fontSize="12pt">{item.title}</Text>
+                  <Flex align="center">
+                    <MdCurrencyRupee />
+                    <Text fontWeight={800}>{item.price}</Text>
+                  </Flex>
+
                   <Quantity>
-                    <span>Quantity</span>
-                    <button onClick={() => onRemove(item)}>
-                      <AiFillMinusCircle />
-                    </button>
-                    <p>{item.quantity}</p>
-                    <button onClick={() => onAdd(item, 1)}>
-                      <AiFillPlusCircle />
-                    </button>
+                    <Flex direction="column">
+                      <span>Quantity</span>
+                      <Flex align="center" justify="flex-start">
+                        <Button onClick={() => onRemove(item)}>
+                          <AiFillMinusCircle />
+                        </Button>
+                        <Text>{item.quantity}</Text>
+                        <Button onClick={() => onAdd(item, 1)}>
+                          <AiFillPlusCircle />
+                        </Button>
+                      </Flex>
+                    </Flex>
                   </Quantity>
                 </CardInfo>
               </Card>
             );
           })}
-        <Checkout layout>
-          {cartItems.length >= 1 && (
-            <div>
-              <h3>Subtotal ${totalPrice}</h3>
-              <button onClick={() => {}}>Purchase</button>
-            </div>
-          )}
-        </Checkout>
+
+        {cartItems.length >= 1 && (
+          <div>
+            <Flex align="center">
+              <Text fontWeight={800}>Subtotal</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>{totalPrice}</Text>
+            </Flex>
+
+            <Button mt={4} bg="orange.300" onClick={() => {}} width="100%">
+              Proceed with Order
+            </Button>
+          </div>
+        )}
       </CartStyle>
     </CartWrapper>
   );
