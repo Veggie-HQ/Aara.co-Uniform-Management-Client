@@ -15,7 +15,7 @@ export const CartWrapper = styled(motion.div)`
 `;
 
 export const CartStyle = styled(motion.div)`
-  width: 60%;
+  width: 75%;
   background: #f1f1f1;
   padding: 0.5rem 1.25rem;
   overflow-y: scroll;

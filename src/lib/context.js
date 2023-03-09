@@ -5,6 +5,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
   //Ourt application state
   const [showCart, setShowCart] = useState(false);
+  const [showUser, setShowUser] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [qty, setQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -73,6 +74,8 @@ export const StateContext = ({ children }) => {
       value={{
         showCart,
         setShowCart,
+        showUser,
+        setShowUser,
         qty,
         increaseQty,
         decreaseQty,
