@@ -1,4 +1,7 @@
 import Head from "next/head";
+import { LKGUKGData } from "@/data/LKGUKG";
+import Item from "@/components/Item";
+import { Box } from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -9,7 +12,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      hi
+      <Box mt="90px">
+        <select placeholder="Select Child">
+          <option>Select Child</option>
+        </select>
+        <Box mt={2} width="100%">
+          {LKGUKGData.map((item, index) => (
+            <>
+              <Item item={item} />
+            </>
+          ))}
+        </Box>
+      </Box>
     </>
   );
 }

@@ -13,7 +13,15 @@ export default function Nav() {
     useStateContext();
 
   return (
-    <Flex height="80px" bg="white" align="center" justify="space-evenly">
+    <Flex
+      height="80px"
+      bg="white"
+      align="center"
+      justify="space-evenly"
+      top="0"
+      position="fixed"
+      width="100%"
+    >
       <Flex direction="column" align="center">
         <div onClick={() => setShowUser(true)}>
           {totalQuantities > 0 && (
