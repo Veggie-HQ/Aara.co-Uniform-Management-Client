@@ -22,12 +22,12 @@ export default function Nav() {
       position="fixed"
       width="100%"
     >
-      <Flex direction="column" align="center">
-        <div onClick={() => setShowUser(true)}>
+      <div onClick={() => setShowUser(true)}>
+        <Flex direction="column" align="center">
           <FiUser />
-        </div>
-        <h3>Profile</h3>
-      </Flex>
+          <h3>Profile</h3>
+        </Flex>
+      </div>
       <AnimatePresence>{showUser && <User />}</AnimatePresence>
 
       <Box>
@@ -36,18 +36,18 @@ export default function Nav() {
         </Link>
       </Box>
 
-      <Flex direction="column" align="center">
-        <div onClick={() => setShowCart(true)}>
+      <div onClick={() => setShowCart(true)}>
+        <Flex direction="column" align="center">
           {totalQuantities > 0 && (
             <motion.span animate={{ scale: 1 }} initial={{ scale: 0 }}>
               {totalQuantities}
             </motion.span>
           )}
           <FiShoppingBag />
-        </div>
-
+        </Flex>
         <h3>Cart</h3>
-      </Flex>
+      </div>
+
       <AnimatePresence>{showCart && <Cart />}</AnimatePresence>
     </Flex>
   );
