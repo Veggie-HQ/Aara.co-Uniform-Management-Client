@@ -54,6 +54,21 @@ const Index = ({ isOpen, onClose }) => {
     e.preventDefault();
     onClose();
     onAddStudent(studentInfo);
+    const existingStudent = localStorage.getItem("Student");
+    if (existingStudent) {
+      localStorage.setItem("Student", [
+        existingStudent,
+        studentInfo.name,
+        studentInfo.gender,
+        studentInfo.goingToClass,
+      ]);
+    } else {
+      localStorage.setItem("Student", [
+        studentInfo.name,
+        studentInfo.gender,
+        studentInfo.goingToClass,
+      ]);
+    }
   };
 
   const { onAddStudent } = useStateContext();

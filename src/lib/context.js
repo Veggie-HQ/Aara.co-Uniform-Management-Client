@@ -5,6 +5,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [showUser, setShowUser] = useState(false);
+  const [USER, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [students, setStudents] = useState([]);
   const [qty, setQty] = useState(1);
@@ -21,6 +22,10 @@ export const StateContext = ({ children }) => {
       if (prevQty - 1 < 1) return 1;
       return prevQty - 1;
     });
+  };
+
+  const loginHandler = (user) => {
+    setUser(user);
   };
   //Add Product To Cart
   const onAdd = (product, quantity) => {
@@ -49,16 +54,22 @@ export const StateContext = ({ children }) => {
 
   const onAddStudent = (student) => {
     const exist = students.find((item) => item.name === student.name);
+    console.log("EXIST", exist);
     if (exist) {
-      setStudents(
-        students.map((item) =>
-          item.name === student.name ? { ...exist } : item
-        )
-      );
+      // setStudents(
+      //   students.map((item) =>
+      //     item.name === student.name ? { ...exist } : item
+      //   )
+      // );
+      return;
     } else {
-      setStudents([...students, { ...student }]);
+      // setStudents([...students, { ...student }]);
+      setStudents((prev) => {
+        return [...prev, { ...student }];
+      });
     }
-    // setStudents([...students, { ...student }]);
+    // const existingStudent = localStorage.getItem("Student");
+    // console.log("in onAddStudent", students);
   };
 
   //Remove product
@@ -87,6 +98,8 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        USER,
+        loginHandler,
         students,
         onAddStudent,
         showCart,

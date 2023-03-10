@@ -6,16 +6,14 @@ import { S6To12Data, S5 } from "@/data/S5To12";
 import Item from "@/components/Item";
 import { Flex, Box, Select, Text } from "@chakra-ui/react";
 import { useStateContext } from "@/lib/context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Login from "@/components/Login";
 
 export default function Home() {
   const [selStudent, setSelStudent] = useState(0);
-  const { showCart, showUser, students } = useStateContext();
-  const [student, setStudent] = useState({
-    name: "",
-    gender: "",
-    goingToClass: "",
-  });
+  const { showCart, showUser, students, onAddStudent, USER } =
+    useStateContext();
+  const [student, setStudent] = useState([]);
 
   const onChange = (e) => {
     setSelStudent(e.target.value);
@@ -27,6 +25,57 @@ export default function Home() {
     }));
   };
 
+  useEffect(() => {
+    // const existingStudentInfo = localStorage.getItem("Student");
+    /* WRONG */
+    const existingStudentInfo = localStorage.getItem("Students");
+    // let userArray = [];
+    if (existingStudentInfo) {
+      const splitDetails = existingStudentInfo.split(",");
+      const assigned = Object.assign({}, splitDetails);
+      let obj = [];
+
+      for (let i = 0; i < splitDetails.length; i += 3) {
+        const exist = students.find((item) => item.name === assigned[i]);
+        // userArray.push({
+        //   name: assigned[i],
+        //   gender: assigned[i + 1],
+        //   goingToClass: assigned[i + 2],
+        // });
+
+        if (!exist) {
+          obj.push({
+            name: assigned[i],
+            gender: assigned[i + 1],
+            goingToClass: assigned[i + 2],
+          });
+          // console.log("adding to context", obj);
+          // onAddStudent({
+          //   name: assigned[i],
+          //   gender: assigned[i + 1],
+          //   goingToClass: assigned[i + 2],
+          // });
+          // onAddStudent({
+          //   name: obj[i].name,
+          //   gender: obj[i].gender,
+          //   goingToClass: obj[i].goingToClass,
+          // });
+          for (let i = 0; i < obj.length; i++) {
+            // console.log("adding to context2", {
+            //   name: obj[i].name,
+            //   gender: obj[i].gender,
+            //   goingToClass: obj[i].goingToClass,
+            // });
+            console.log(obj[i]);
+          }
+        }
+      }
+
+      // onAddStudent(userArray);
+      // console.log("students", students);
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -35,90 +84,97 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex mt="90px" direction="column">
-        <Flex
-          zIndex={showCart | showUser ? -1 : 1}
-          width="80%"
-          margin="0px auto"
-          direction="column"
-        >
-          <Text fontWeight={600} align="center">
-            Placing an order for:
-          </Text>
-          {students.length > 0 && (
-            <Select
-              bg="orange.300"
-              variant="outline"
-              placeholder="Select Student"
-              onChange={onChange}
-            >
-              {students.map((item, index) => (
-                <>
-                  {/* <option value={0}>Select Student</option> */}
-                  <option key={index} value={index + 1}>
-                    {item.name}
-                  </option>
-                </>
-              ))}
-            </Select>
-          )}
-        </Flex>
 
-        <Box mt={2} width="100%">
-          {student.length === 0 ? (
-            ""
-          ) : (
-            <>
-              {Number(student.goingToClass) >= 1 &&
-              Number(student.goingToClass) <= 4 ? (
-                <>
-                  {S1To4Data.map((item, index) => (
+      <Flex mt="90px" direction="column">
+        {!USER ? (
+          <Flex align="center" justify="center">
+            <Login />
+          </Flex>
+        ) : (
+          <>
+            <Flex
+              zIndex={showCart | showUser ? -1 : 1}
+              width="80%"
+              margin="0px auto"
+              direction="column"
+            >
+              <Text fontWeight={600} align="center">
+                Placing an order for:
+              </Text>
+              {students.length > 0 && (
+                <Select
+                  bg="orange.300"
+                  variant="outline"
+                  placeholder="Select Student"
+                  onChange={onChange}
+                >
+                  {students.map((item, index) => (
                     <>
-                      <Item item={item} key={index} />
+                      <option key={index} value={index + 1}>
+                        {item.name}
+                      </option>
                     </>
                   ))}
-                </>
-              ) : (
-                ""
+                </Select>
               )}
-              {Number(student.goingToClass) === 5 ? (
+            </Flex>
+            <Box mt={2} width="100%">
+              {student.length === 0 ? (
+                ""
+              ) : (
                 <>
-                  {S5.map((item, index) => (
+                  {Number(student.goingToClass) >= 1 &&
+                  Number(student.goingToClass) <= 4 ? (
                     <>
-                      <Item item={item} key={index} />
+                      {S1To4Data.map((item, index) => (
+                        <>
+                          <Item item={item} key={index} />
+                        </>
+                      ))}
                     </>
-                  ))}
-                </>
-              ) : (
-                ""
-              )}
-              {Number(student.goingToClass) > 5 &&
-              Number(student.goingToClass) <= 12 ? (
-                <>
-                  {S6To12Data.map((item, index) => (
+                  ) : (
+                    ""
+                  )}
+                  {Number(student.goingToClass) === 5 ? (
                     <>
-                      <Item item={item} key={index} />
+                      {S5.map((item, index) => (
+                        <>
+                          <Item item={item} key={index} />
+                        </>
+                      ))}
                     </>
-                  ))}
-                </>
-              ) : (
-                ""
-              )}
-              {student.goingToClass.includes("LKG") ||
-              student.goingToClass.includes("UKG") ? (
-                <>
-                  {LKGUKGData.map((item, index) => (
+                  ) : (
+                    ""
+                  )}
+                  {Number(student.goingToClass) > 5 &&
+                  Number(student.goingToClass) <= 12 ? (
                     <>
-                      <Item item={item} key={index} />
+                      {S6To12Data.map((item, index) => (
+                        <>
+                          <Item item={item} key={index} />
+                        </>
+                      ))}
                     </>
-                  ))}
+                  ) : (
+                    ""
+                  )}
+                  {student.goingToClass.includes("LKG") ||
+                  student.goingToClass.includes("UKG") ? (
+                    <>
+                      {LKGUKGData.map((item, index) => (
+                        <>
+                          <Item item={item} key={index} />
+                        </>
+                      ))}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
-              ) : (
-                ""
               )}
-            </>
-          )}
-        </Box>
+            </Box>
+          </>
+        )}
       </Flex>
     </>
   );
