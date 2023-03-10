@@ -158,6 +158,9 @@ export const StateContext = ({ children }) => {
         gst12Total,
         insertData,
         DATA,
+        setGst5Total,
+        setGst12Total,
+        setTotalPrice,
       }}
     >
       {children}

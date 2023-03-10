@@ -44,6 +44,9 @@ export default function Cart() {
     setTotalQuantitites,
     gst5Total,
     gst12Total,
+    setGst5Total,
+    setGst12Total,
+    setTotalPrice,
   } = useStateContext();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -82,6 +85,9 @@ export default function Cart() {
         setShowCart(false);
         setCartItems([]);
         setTotalQuantitites(0);
+        setGst5Total(0.0);
+        setGst12Total(0.0);
+        setTotalPrice(0);
       });
     } catch (err) {
       setError(err.message);
