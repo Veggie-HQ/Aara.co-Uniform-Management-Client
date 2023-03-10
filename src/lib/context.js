@@ -108,13 +108,9 @@ export const StateContext = ({ children }) => {
     //Set Total Price
     setTotalPrice((prevTotalPrice) => prevTotalPrice - product.price);
     if (product.price < 1000) {
-      setGst5Total(
-        (prevGST5Total) => prevGST5Total - 0.05 * quantity * product.price
-      );
-    } else if (product.price >= 1000) {
-      setGst12Total(
-        (prevGST12Total) => prevGST12Total - 0.12 * quantity * product.price
-      );
+      setGst5Total((prevGST5Total) => prevGST5Total - 0.05 * product.price);
+    } else {
+      setGst12Total((prevGST12Total) => prevGST12Total - 0.12 * product.price);
     }
     //Remove from total quantities
     setTotalQuantitites((prevTotalQuantities) => prevTotalQuantities - 1);
