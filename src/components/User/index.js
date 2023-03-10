@@ -34,7 +34,7 @@ export default function User() {
         layout
         initial={{ x: "-50%" }}
         animate={{ x: 0 }}
-        exit={{ x: "0%" }}
+        exit={{ x: "-50%" }}
         transition={{ type: "tween" }}
         onClick={(e) => e.stopPropagation()}
       >
