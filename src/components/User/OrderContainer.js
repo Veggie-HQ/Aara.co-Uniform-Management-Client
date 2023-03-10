@@ -128,9 +128,14 @@ const Index = () => {
                     {item.total}
                   </Text>
                 </Flex>
-                <EditModal isOpen={isOpen} onClose={onClose} />
+                <EditModal isOpen={isOpen} onClose={onClose} data={item} />
                 <Flex width="100%" align="center" justify="center" mt={1}>
-                  <Button fontSize="10pt" onClick={() => onOpen()}>
+                  <Button
+                    fontSize="10pt"
+                    onClick={() => {
+                      onOpen();
+                    }}
+                  >
                     Edit Order
                     <Icon as={AiOutlineEdit} ml={1} />
                   </Button>

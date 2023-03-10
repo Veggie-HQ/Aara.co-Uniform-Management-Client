@@ -139,7 +139,7 @@ const Index = () => {
                     fontWeight={800}
                     mt={2}
                   >
-                    You have Successfully logged in
+                    Successfully Logged in
                   </Text>
                 </>
               )}
