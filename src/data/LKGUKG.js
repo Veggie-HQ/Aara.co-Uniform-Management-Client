@@ -28,7 +28,7 @@ export const LKGUKGData = [
   {
     slug: "LKGTrackTShirt",
     title: "Track T Shirt",
-    price: 650,
+    price: 300,
     imageURL: "/assets/tshirt.jpg",
     gender: ["boy", "girl", "other"],
     size: ["22", "24", "26", "28", "30", "32", "34", "36"],
@@ -36,7 +36,7 @@ export const LKGUKGData = [
   {
     slug: "LKGTrackPant",
     title: "Track Pants",
-    price: 650,
+    price: 350,
     imageURL: "/assets/trackpants.jpg",
     gender: ["boy", "girl", "other"],
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38"],
@@ -44,7 +44,7 @@ export const LKGUKGData = [
   {
     slug: "LKGWinterJacket",
     title: "Winter Jacket",
-    price: 90,
+    price: 550,
     imageURL: "/assets/jacket.webp",
     gender: ["boy", "girl", "other"],
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38", "40", "42"],

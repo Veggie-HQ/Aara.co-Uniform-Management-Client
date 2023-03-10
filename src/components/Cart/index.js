@@ -72,7 +72,6 @@ export default function Cart() {
                   {item.color && (
                     <Text fontSize="12pt">Color: {item.color}</Text>
                   )}
-                  <Text fontSize="12pt">Gender: {item.gender}</Text>
                   <Text fontSize="12pt">Size: {item.size}</Text>
 
                   <Flex align="center">

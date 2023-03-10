@@ -55,9 +55,16 @@ const Index = ({ isOpen, onClose, item }) => {
     });
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onAdd(product, qty);
+    onClose();
+    notify();
+  };
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -67,38 +74,39 @@ const Index = ({ isOpen, onClose, item }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex
-              align="center"
-              justify="center"
-              direction="column"
-              padding={1}
-            >
-              <Image src={imageURL} alt={title} width="200px" />
+            <form onSubmit={onSubmit}>
+              <Flex
+                align="center"
+                justify="center"
+                direction="column"
+                padding={1}
+              >
+                <Image src={imageURL} alt={title} width="200px" />
 
-              <Flex align="center" mt={2}>
-                <MdCurrencyRupee />
-                <Text fontWeight={800}>{price}</Text>
-              </Flex>
+                <Flex align="center" mt={2}>
+                  <MdCurrencyRupee />
+                  <Text fontWeight={800}>{price}</Text>
+                </Flex>
 
-              {title === "T Shirts" && (
-                <>
-                  <Text mt={4} fontWeight={600}>
-                    Select Color
-                  </Text>
-                  <Select
-                    variant="filled"
-                    placeholder="Select Color"
-                    required
-                    name="color"
-                    onChange={onChange}
-                  >
-                    <option value={color[0]}>{color[0]}</option>
-                    <option value={color[1]}>{color[1]}</option>
-                  </Select>
-                </>
-              )}
+                {title === "T Shirts" && (
+                  <>
+                    <Text mt={4} fontWeight={600}>
+                      Select Color
+                    </Text>
+                    <Select
+                      variant="filled"
+                      placeholder="Select Color"
+                      required
+                      name="color"
+                      onChange={onChange}
+                    >
+                      <option value={color[0]}>{color[0]}</option>
+                      <option value={color[1]}>{color[1]}</option>
+                    </Select>
+                  </>
+                )}
 
-              {/* <Text mt={4} fontWeight={600}>
+                {/* <Text mt={4} fontWeight={600}>
                 Select Gender
               </Text>
               <Select
@@ -113,51 +121,48 @@ const Index = ({ isOpen, onClose, item }) => {
                 {gender[2] && <option value={gender[2]}>{gender[2]}</option>}
               </Select> */}
 
-              <Text mt={4} fontWeight={600}>
-                Select Size
-              </Text>
-              <Select
-                variant="filled"
-                placeholder="Select Size"
-                required
-                name="size"
-                onChange={onChange}
-              >
-                {size.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </Select>
+                <Text mt={4} fontWeight={600}>
+                  Select Size
+                </Text>
+                <Select
+                  variant="filled"
+                  placeholder="Select Size"
+                  required
+                  name="size"
+                  onChange={onChange}
+                >
+                  {size.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </Select>
 
-              <Text mt={4} fontWeight={600}>
-                Quantity
-              </Text>
-              <Quantity>
-                <Flex align="center" justify="space-evenly">
-                  <Button onClick={decreaseQty} mr={2}>
-                    <AiFillMinusCircle />
-                  </Button>
-                  <Text mr={2}>{qty}</Text>
-                  <Button>
-                    <AiFillPlusCircle onClick={increaseQty} />
-                  </Button>
-                </Flex>
-              </Quantity>
+                <Text mt={4} fontWeight={600}>
+                  Quantity
+                </Text>
+                <Quantity>
+                  <Flex align="center" justify="space-evenly">
+                    <Button onClick={decreaseQty} mr={2}>
+                      <AiFillMinusCircle />
+                    </Button>
+                    <Text mr={2}>{qty}</Text>
+                    <Button>
+                      <AiFillPlusCircle onClick={increaseQty} />
+                    </Button>
+                  </Flex>
+                </Quantity>
 
-              <Button
-                bg="orange.300"
-                _hover={{ bg: "orange.100" }}
-                mt={4}
-                onClick={() => {
-                  onAdd(product, qty);
-                  onClose();
-                  notify();
-                }}
-              >
-                Add To Cart
-              </Button>
-            </Flex>
+                <Button
+                  type="submit"
+                  bg="orange.300"
+                  _hover={{ bg: "orange.100" }}
+                  mt={4}
+                >
+                  Add To Cart
+                </Button>
+              </Flex>
+            </form>
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -50,6 +50,12 @@ const Index = ({ isOpen, onClose }) => {
     }));
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onClose();
+    onAddStudent(studentInfo);
+  };
+
   const { onAddStudent } = useStateContext();
 
   return (
@@ -64,51 +70,50 @@ const Index = ({ isOpen, onClose }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex
-              align="center"
-              justify="center"
-              direction="column"
-              padding={1}
-            >
-              <Stack width="100%" spacing={3}>
-                <Input
-                  placeholder="Enter Name"
-                  name="name"
-                  onChange={onChange}
-                />
-                <Select
-                  placeholder="Select Gender"
-                  name="gender"
-                  onChange={onChange}
-                >
-                  <option value="boy">Boy</option>
-                  <option value="girl">Girl</option>
-                  <option value="other">Other</option>
-                </Select>
-
-                <Select
-                  placeholder="Select Going To Class"
-                  name="goingToClass"
-                  onChange={onChange}
-                >
-                  {goingToClass.map((item, index) => (
-                    <option key={index} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </Select>
-              </Stack>
-
-              <Button
-                mt={3}
-                onClick={() => {
-                  onClose();
-                  onAddStudent(studentInfo);
-                }}
+            <form onSubmit={onSubmit}>
+              <Flex
+                align="center"
+                justify="center"
+                direction="column"
+                padding={1}
               >
-                Add Student
-              </Button>
-            </Flex>
+                <Stack width="100%" spacing={3}>
+                  <Input
+                    placeholder="Enter Name"
+                    name="name"
+                    onChange={onChange}
+                    required
+                  />
+                  <Select
+                    placeholder="Select Gender"
+                    name="gender"
+                    onChange={onChange}
+                    required
+                  >
+                    <option value="boy">Boy</option>
+                    <option value="girl">Girl</option>
+                    <option value="other">Other</option>
+                  </Select>
+
+                  <Select
+                    placeholder="Select Going To Class"
+                    name="goingToClass"
+                    onChange={onChange}
+                    required
+                  >
+                    {goingToClass.map((item, index) => (
+                      <option key={index} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </Select>
+                </Stack>
+
+                <Button type="submit" mt={3}>
+                  Add Student
+                </Button>
+              </Flex>
+            </form>
           </ModalBody>
         </ModalContent>
       </Modal>
