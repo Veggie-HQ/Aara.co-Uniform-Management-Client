@@ -69,6 +69,12 @@ export default function Cart() {
                 <Image src={item.imageURL} alt={item.title} width="30px" />
                 <CardInfo>
                   <Text fontSize="12pt">{item.title}</Text>
+                  {item.color && (
+                    <Text fontSize="12pt">Color: {item.color}</Text>
+                  )}
+                  <Text fontSize="12pt">Gender: {item.gender}</Text>
+                  <Text fontSize="12pt">Size: {item.size}</Text>
+
                   <Flex align="center">
                     <MdCurrencyRupee />
                     <Text fontWeight={800}>{item.price}</Text>

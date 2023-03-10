@@ -6,6 +6,7 @@ export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [students, setStudents] = useState([]);
   const [qty, setQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantitites] = useState(0);
@@ -45,6 +46,21 @@ export const StateContext = ({ children }) => {
       setCartItems([...cartItems, { ...product, quantity: quantity }]);
     }
   };
+
+  const onAddStudent = (student) => {
+    const exist = students.find((item) => item.name === student.name);
+    if (exist) {
+      setStudents(
+        students.map((item) =>
+          item.name === student.name ? { ...exist } : item
+        )
+      );
+    } else {
+      setStudents([...students, { ...student }]);
+    }
+    // setStudents([...students, { ...student }]);
+  };
+
   //Remove product
   const onRemove = (product) => {
     //Set Total Price
@@ -71,6 +87,8 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        students,
+        onAddStudent,
         showCart,
         setShowCart,
         showUser,

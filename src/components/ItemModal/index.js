@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -19,8 +19,28 @@ import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import toast from "react-hot-toast";
 
 const Index = ({ isOpen, onClose, item }) => {
-  const { title, price, imageURL, color, gender, size } = item;
+  const { slug, title, price, imageURL, color, gender, size } = item;
   const { increaseQty, decreaseQty, qty, onAdd, setQty } = useStateContext();
+
+  const [product, setProduct] = useState({
+    slug: slug,
+    title: title,
+    price: Number(price),
+    imageURL: imageURL,
+    color: "",
+    gender: "",
+    size: "",
+  });
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    setProduct((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const resetQuantity = () => {
     setQty(1);
@@ -65,7 +85,13 @@ const Index = ({ isOpen, onClose, item }) => {
                   <Text mt={4} fontWeight={600}>
                     Select Color
                   </Text>
-                  <Select variant="filled" placeholder="Select Color" required>
+                  <Select
+                    variant="filled"
+                    placeholder="Select Color"
+                    required
+                    name="color"
+                    onChange={onChange}
+                  >
                     <option value={color[0]}>{color[0]}</option>
                     <option value={color[1]}>{color[1]}</option>
                   </Select>
@@ -75,7 +101,13 @@ const Index = ({ isOpen, onClose, item }) => {
               <Text mt={4} fontWeight={600}>
                 Select Gender
               </Text>
-              <Select variant="filled" placeholder="Select Color" required>
+              <Select
+                variant="filled"
+                placeholder="Select Color"
+                required
+                name="gender"
+                onChange={onChange}
+              >
                 <option value={gender[0]}>{gender[0]}</option>
                 <option value={gender[1]}>{gender[1]}</option>
                 {gender[2] && <option value={gender[2]}>{gender[2]}</option>}
@@ -84,7 +116,13 @@ const Index = ({ isOpen, onClose, item }) => {
               <Text mt={4} fontWeight={600}>
                 Select Size
               </Text>
-              <Select variant="filled" placeholder="Select Size" required>
+              <Select
+                variant="filled"
+                placeholder="Select Size"
+                required
+                name="size"
+                onChange={onChange}
+              >
                 {size.map((item, index) => (
                   <option key={index} value={item}>
                     {item}
@@ -112,7 +150,7 @@ const Index = ({ isOpen, onClose, item }) => {
                 _hover={{ bg: "orange.100" }}
                 mt={4}
                 onClick={() => {
-                  onAdd(item, qty);
+                  onAdd(product, qty);
                   notify();
                 }}
               >

@@ -74,7 +74,7 @@ export default function User() {
             borderRadius="7pt"
             direction="column"
           >
-            <Text>Student Information</Text>
+            <Text mb={2}>Student Information</Text>
             <InfoContainer />
             <InfoModal isOpen={isOpen} onClose={onClose} />
             <Flex mt={5}>
