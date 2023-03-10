@@ -80,7 +80,7 @@ export default function User() {
           >
             <InfoContainer />
             <InfoModal isOpen={isOpen} onClose={onClose} />
-            {/* <Flex mt={5}>
+            <Flex mt={5}>
               <Button
                 fontSize="10pt"
                 onClick={() => {
@@ -89,7 +89,7 @@ export default function User() {
               >
                 Add Student Info
               </Button>
-            </Flex> */}
+            </Flex>
           </Flex>
 
           <Text fontWeight={800} mt={6}>
