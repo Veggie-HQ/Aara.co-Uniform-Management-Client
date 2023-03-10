@@ -25,57 +25,6 @@ export default function Home() {
     }));
   };
 
-  useEffect(() => {
-    // const existingStudentInfo = localStorage.getItem("Student");
-    /* WRONG */
-    const existingStudentInfo = localStorage.getItem("Students");
-    // let userArray = [];
-    if (existingStudentInfo) {
-      const splitDetails = existingStudentInfo.split(",");
-      const assigned = Object.assign({}, splitDetails);
-      let obj = [];
-
-      for (let i = 0; i < splitDetails.length; i += 3) {
-        const exist = students.find((item) => item.name === assigned[i]);
-        // userArray.push({
-        //   name: assigned[i],
-        //   gender: assigned[i + 1],
-        //   goingToClass: assigned[i + 2],
-        // });
-
-        if (!exist) {
-          obj.push({
-            name: assigned[i],
-            gender: assigned[i + 1],
-            goingToClass: assigned[i + 2],
-          });
-          // console.log("adding to context", obj);
-          // onAddStudent({
-          //   name: assigned[i],
-          //   gender: assigned[i + 1],
-          //   goingToClass: assigned[i + 2],
-          // });
-          // onAddStudent({
-          //   name: obj[i].name,
-          //   gender: obj[i].gender,
-          //   goingToClass: obj[i].goingToClass,
-          // });
-          for (let i = 0; i < obj.length; i++) {
-            // console.log("adding to context2", {
-            //   name: obj[i].name,
-            //   gender: obj[i].gender,
-            //   goingToClass: obj[i].goingToClass,
-            // });
-            console.log(obj[i]);
-          }
-        }
-      }
-
-      // onAddStudent(userArray);
-      // console.log("students", students);
-    }
-  }, []);
-
   return (
     <>
       <Head>

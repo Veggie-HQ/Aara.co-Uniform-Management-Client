@@ -126,7 +126,9 @@ const Index = () => {
                   fontWeight={800}
                   mt={2}
                 >
-                  {err}
+                  {err === "reCAPTCHA has already been rendered in this element"
+                    ? ""
+                    : err}
                 </Text>
               )}
               {conf && (

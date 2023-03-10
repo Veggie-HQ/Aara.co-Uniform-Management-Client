@@ -1,27 +1,26 @@
 import { UserStyle, UserWrapper } from "@/styles/UserStyles";
-
+import { auth } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
 import InfoContainer from "./InfoContainer";
 import InfoModal from "@/components/InfoModal";
 
+import { signOut } from "firebase/auth";
+
 export default function User() {
-  const { setShowUser, cartItems } = useStateContext();
+  const { setShowUser, USER } = useStateContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  //Payment
-  // const handleCheckout = async () => {
-  //   const stripePromise = await getStripe();
-  //   const response = await fetch("/api/stripe", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(cartItems),
-  //   });
-  //   const data = await response.json();
-  //   await stripePromise.redirectToCheckout({ sessionId: data.id });
-  // };
+  const signOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("successfully signed out");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <UserWrapper
@@ -51,14 +50,14 @@ export default function User() {
             direction="column"
           >
             <Text>Parent Mobile Number</Text>
-            <Text fontWeight={800}>+91 8861302233</Text>
+            <Text fontWeight={800}>{USER.user.phoneNumber}</Text>
 
             <Text
               fontStyle="italic"
               fontSize="10pt"
               mt={3}
               color="orange.500"
-              onClick={() => {}}
+              onClick={signOutHandler}
               cursor="pointer"
             >
               Change Number
