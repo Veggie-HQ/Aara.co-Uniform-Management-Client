@@ -12,9 +12,17 @@ export const StateContext = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [gst5Total, setGst5Total] = useState(0.0);
   const [gst12Total, setGst12Total] = useState(0.0);
+  const [DATA, setDATA] = useState([]);
 
   const [totalQuantities, setTotalQuantitites] = useState(0);
   const [STUDENT, selectedStudent] = useState("");
+
+  const insertData = (data) => {
+    setDATA((prev) => ({
+      ...prev,
+      data,
+    }));
+  };
 
   //Increase product countity
   const increaseQty = () => {
@@ -144,6 +152,8 @@ export const StateContext = ({ children }) => {
         setTotalQuantitites,
         gst5Total,
         gst12Total,
+        insertData,
+        DATA,
       }}
     >
       {children}

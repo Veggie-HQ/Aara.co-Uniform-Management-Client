@@ -17,8 +17,8 @@ import {
 import { useState } from "react";
 
 const Index = ({ isOpen, onClose, data }) => {
-  console.log(data);
-  const [DATA, setDATA] = useState([]);
+  // console.log(data);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -48,7 +48,7 @@ const Index = ({ isOpen, onClose, data }) => {
             <Flex>
               <Text fontSize="10pt">Going to Class:</Text>
               <Text fontSize="10pt" ml={1} fontWeight={600}>
-                {Number(data.studentDetails.goingToClass)}
+                {data.studentDetails.goingToClass}
               </Text>
             </Flex>
 

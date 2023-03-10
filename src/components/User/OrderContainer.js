@@ -33,8 +33,6 @@ const Index = () => {
         ...prev,
         orders,
       }));
-
-      console.log("ORDERS: ", ORDERS.orders);
     } catch (error) {
       setError(error.message);
       console.log("orderFetcher Error");
@@ -53,9 +51,12 @@ const Index = () => {
           <Icon as={BiRefresh} ml={1} height="10pt" />
         </Button>
       </Flex>
+
       {ORDERS != ""
         ? ORDERS.orders.map((item, index) => (
             <>
+              <EditModal isOpen={isOpen} onClose={onClose} data={item} />
+
               <Flex
                 key={index}
                 width="95%"
@@ -128,8 +129,7 @@ const Index = () => {
                     {item.total}
                   </Text>
                 </Flex>
-                <EditModal isOpen={isOpen} onClose={onClose} data={item} />
-                <Flex width="100%" align="center" justify="center" mt={1}>
+                {/* <Flex width="100%" align="center" justify="center" mt={1}>
                   <Button
                     fontSize="10pt"
                     onClick={() => {
@@ -139,7 +139,7 @@ const Index = () => {
                     Edit Order
                     <Icon as={AiOutlineEdit} ml={1} />
                   </Button>
-                </Flex>
+                </Flex> */}
               </Flex>
             </>
           ))

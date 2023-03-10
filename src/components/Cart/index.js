@@ -10,7 +10,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { MdCurrencyRupee } from "react-icons/md";
 import { useStateContext } from "@/lib/context";
-import { Flex, Image, Text, Box, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Image,
+  Text,
+  Box,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import {
   doc,
@@ -21,8 +28,10 @@ import {
 } from "firebase/firestore";
 import { firestore, auth } from "@/firebase/clientApp";
 import { useRouter } from "next/router";
+import Confirmation from "@/components/Confirmation";
 
 export default function Cart() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     cartItems,
     setShowCart,
@@ -201,11 +210,20 @@ export default function Cart() {
               </Text>
             </Flex>
 
+            <Confirmation
+              isOpen={isOpen}
+              onClose={onClose}
+              onConfirm={submitOrder}
+            />
+
             <Button
               isLoading={loading}
               mt={4}
               bg="orange.300"
-              onClick={submitOrder}
+              onClick={() => {
+                // submitOrder
+                onOpen();
+              }}
               width="100%"
             >
               Proceed with Order

@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [selStudent, setSelStudent] = useState(0);
-  const { showCart, showUser, students, USER, studentSelector } =
+  const { showCart, showUser, students, USER, studentSelector, insertData } =
     useStateContext();
   const [student, setStudent] = useState([]);
 
