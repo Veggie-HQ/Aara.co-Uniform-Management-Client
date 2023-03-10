@@ -168,7 +168,7 @@ export default function Cart() {
           })}
 
         {cartItems.length >= 1 && (
-          <Flex direction="column">
+          <Flex direction="column" mb="40%">
             <Flex align="center">
               <Text fontWeight={800}>Subtotal</Text>
               <MdCurrencyRupee />
@@ -221,7 +221,6 @@ export default function Cart() {
               mt={4}
               bg="orange.300"
               onClick={() => {
-                // submitOrder
                 onOpen();
               }}
               width="100%"
