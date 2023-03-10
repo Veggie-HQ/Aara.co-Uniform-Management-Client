@@ -29,10 +29,12 @@ const Index = () => {
           const user = result.user;
 
           setConf(true);
-          loginHandler((prev) => ({
-            ...prev,
-            user,
-          }));
+          setTimeout(() => {
+            loginHandler((prev) => ({
+              ...prev,
+              user,
+            }));
+          }, 1500);
 
           console.log("USER: ", USER);
           // ...
@@ -128,15 +130,26 @@ const Index = () => {
                 </Text>
               )}
               {conf && (
-                <Text
-                  align="center"
-                  color="green"
-                  fontSize="10pt"
-                  fontWeight={800}
-                  mt={2}
-                >
-                  You have Successfully logged in
-                </Text>
+                <>
+                  <Text
+                    align="center"
+                    color="green"
+                    fontSize="10pt"
+                    fontWeight={800}
+                    mt={2}
+                  >
+                    You have Successfully logged in
+                  </Text>
+                  <Text
+                    align="center"
+                    color="green"
+                    fontSize="10pt"
+                    fontWeight={800}
+                    mt={2}
+                  >
+                    Redirecting
+                  </Text>
+                </>
               )}
             </Flex>
           ) : (
