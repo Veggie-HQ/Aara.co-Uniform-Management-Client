@@ -98,7 +98,7 @@ const Index = ({ isOpen, onClose, item }) => {
                 </>
               )}
 
-              <Text mt={4} fontWeight={600}>
+              {/* <Text mt={4} fontWeight={600}>
                 Select Gender
               </Text>
               <Select
@@ -111,7 +111,7 @@ const Index = ({ isOpen, onClose, item }) => {
                 <option value={gender[0]}>{gender[0]}</option>
                 <option value={gender[1]}>{gender[1]}</option>
                 {gender[2] && <option value={gender[2]}>{gender[2]}</option>}
-              </Select>
+              </Select> */}
 
               <Text mt={4} fontWeight={600}>
                 Select Size
@@ -151,6 +151,7 @@ const Index = ({ isOpen, onClose, item }) => {
                 mt={4}
                 onClick={() => {
                   onAdd(product, qty);
+                  onClose();
                   notify();
                 }}
               >
