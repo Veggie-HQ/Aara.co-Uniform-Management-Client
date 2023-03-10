@@ -110,9 +110,11 @@ export default function Cart() {
           <Text align="center" fontWeight={800}>
             Placing Orders for:{" "}
           </Text>
-          <Text fontWeight={800} align="center" color="orange.500">
-            {STUDENT.student.name}
-          </Text>
+          {STUDENT && (
+            <Text fontWeight={800} align="center" color="orange.500">
+              {STUDENT.student.name}
+            </Text>
+          )}
         </Box>
         {cartItems.length >= 1 &&
           cartItems.map((item) => {

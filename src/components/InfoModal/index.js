@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 
 const goingToClass = [
-  "NA",
   "LKG",
   "UKG",
   "1",

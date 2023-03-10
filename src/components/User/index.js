@@ -3,6 +3,7 @@ import { auth } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
 import InfoContainer from "./InfoContainer";
+import OrderContainer from "./OrderContainer";
 import InfoModal from "@/components/InfoModal";
 
 import { signOut } from "firebase/auth";
@@ -51,7 +52,7 @@ export default function User() {
           >
             <Text>Parent Mobile Number</Text>
             <Text fontWeight={800}>{USER.user.phoneNumber}</Text>
-
+            <hr />
             <Text
               fontStyle="italic"
               fontSize="10pt"
@@ -64,17 +65,47 @@ export default function User() {
             </Text>
           </Flex>
 
+          <Text fontWeight={800} mt={6}>
+            Student Information
+          </Text>
+
           <Flex
             width="100%"
             align="center"
             p={2}
-            mt={6}
+            mt={3}
             bg="gray.300"
             borderRadius="7pt"
             direction="column"
           >
-            <Text mb={2}>Student Information</Text>
             <InfoContainer />
+            <InfoModal isOpen={isOpen} onClose={onClose} />
+            <Flex mt={5}>
+              <Button
+                fontSize="10pt"
+                onClick={() => {
+                  onOpen();
+                }}
+              >
+                Add Another Student&apos;s Info
+              </Button>
+            </Flex>
+          </Flex>
+
+          <Text fontWeight={800} mt={6}>
+            Order History
+          </Text>
+
+          <Flex
+            width="100%"
+            align="center"
+            p={2}
+            mt={3}
+            bg="gray.300"
+            borderRadius="7pt"
+            direction="column"
+          >
+            <OrderContainer />
             <InfoModal isOpen={isOpen} onClose={onClose} />
             <Flex mt={5}>
               <Button

@@ -141,15 +141,6 @@ const Index = () => {
                   >
                     You have Successfully logged in
                   </Text>
-                  <Text
-                    align="center"
-                    color="green"
-                    fontSize="10pt"
-                    fontWeight={800}
-                    mt={2}
-                  >
-                    Redirecting
-                  </Text>
                 </>
               )}
             </Flex>

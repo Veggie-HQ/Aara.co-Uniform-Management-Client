@@ -4,7 +4,7 @@ export const LKGUKGData = [
     slug: "LKGTshirt",
     title: "T Shirts",
     price: 320,
-    imageURL: "/assets/tshirt.jpg",
+    imageURL: "/assets/tshirt.jpeg",
     color: ["Green", "Yellow"],
     gender: ["boy", "girl", "other"],
     size: ["22", "24", "26", "28", "30", "32", "34", "36", "38", "40", "42"],
