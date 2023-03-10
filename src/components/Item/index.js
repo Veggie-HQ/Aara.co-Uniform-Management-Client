@@ -18,6 +18,7 @@ const Index = ({ item }) => {
       align="center"
       justify="space-between"
       onClick={() => onOpen()}
+      _hover={{ cursor: "pointer" }}
     >
       <ItemModal isOpen={isOpen} onClose={onClose} item={item} />
       <Flex align="center" justify="center" width="30%">
@@ -34,7 +35,13 @@ const Index = ({ item }) => {
             {price}
           </Text>
         </Flex>
-        <Text mt={2} align="center" fontSize="9pt" fontStyle="italic">
+        <Text
+          _hover={{ cursor: "pointer" }}
+          mt={2}
+          align="center"
+          fontSize="9pt"
+          fontStyle="italic"
+        >
           Tap to Add to Cart
         </Text>
       </Flex>

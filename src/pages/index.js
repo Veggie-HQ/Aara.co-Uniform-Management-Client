@@ -1,17 +1,17 @@
-import Head from "next/head";
 import { LKGUKGData } from "@/data/LKGUKG";
 import { S1To4Data } from "@/data/S1To4";
-import { S6To12Data, S5 } from "@/data/S5To12";
+import { S5, S6To12Data } from "@/data/S5To12";
+import Head from "next/head";
 
 import Item from "@/components/Item";
-import { Flex, Box, Select, Text } from "@chakra-ui/react";
-import { useStateContext } from "@/lib/context";
-import { useState, useEffect } from "react";
 import Login from "@/components/Login";
+import { useStateContext } from "@/lib/context";
+import { Box, Flex, Select, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function Home() {
   const [selStudent, setSelStudent] = useState(0);
-  const { showCart, showUser, students, onAddStudent, USER } =
+  const { showCart, showUser, students, USER, studentSelector } =
     useStateContext();
   const [student, setStudent] = useState([]);
 
@@ -23,6 +23,7 @@ export default function Home() {
       gender: students[selStudent].gender,
       goingToClass: students[selStudent].goingToClass,
     }));
+    studentSelector(students[selStudent]);
   };
 
   return (

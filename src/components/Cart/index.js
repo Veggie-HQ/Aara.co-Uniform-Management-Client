@@ -11,24 +11,73 @@ import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { MdCurrencyRupee } from "react-icons/md";
 import { useStateContext } from "@/lib/context";
 import { Flex, Image, Text, Box, Button } from "@chakra-ui/react";
+import { useState } from "react";
+import {
+  doc,
+  getDoc,
+  runTransaction,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
+import { firestore, auth } from "@/firebase/clientApp";
+import { useRouter } from "next/router";
 
 export default function Cart() {
-  const { cartItems, setShowCart, onAdd, onRemove, totalPrice } =
-    useStateContext();
+  const {
+    cartItems,
+    setShowCart,
+    onAdd,
+    onRemove,
+    totalPrice,
+    STUDENT,
+    USER,
+    setCartItems,
+    setTotalQuantitites,
+  } = useStateContext();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  //Payment
-  // const handleCheckout = async () => {
-  //   const stripePromise = await getStripe();
-  //   const response = await fetch("/api/stripe", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(cartItems),
-  //   });
-  //   const data = await response.json();
-  //   await stripePromise.redirectToCheckout({ sessionId: data.id });
-  // };
+  const submitOrder = async () => {
+    if (error) setError("");
+    setLoading(true);
+
+    try {
+      const commDocRef = doc(
+        firestore,
+        "clientOrders",
+        `${USER.user.phoneNumber}-${STUDENT.student.name}`
+      );
+      await runTransaction(firestore, async (transaction) => {
+        const commDoc = await transaction.get(commDocRef);
+        if (commDoc.exists()) {
+          throw new Error(`This Record Exists`);
+        }
+
+        transaction.set(commDocRef, {
+          cartItems: cartItems,
+          studentDetails: STUDENT.student,
+          parentInfo: USER.user.phoneNumber,
+        });
+
+        router.push(`/success`);
+        setShowCart(false);
+        setCartItems([]);
+        setTotalQuantitites(0);
+
+        // transaction.set(
+        //   doc(firestore, `users/${user?.uid}/communitySnippets`, commName),
+        //   {
+        //     communityId: commName,
+        //     isModerator: true,
+        //   }
+        // );
+      });
+    } catch (err) {
+      setError(err.message);
+    }
+    setLoading(false);
+  };
 
   return (
     <CartWrapper
@@ -57,6 +106,14 @@ export default function Cart() {
             <FaShoppingCart />
           </EmptyStyle>
         )}
+        <Box bg="purple.200" mt={5} p={1} borderRadius="7pt">
+          <Text align="center" fontWeight={800}>
+            Placing Orders for:{" "}
+          </Text>
+          <Text fontWeight={800} align="center" color="orange.500">
+            {STUDENT.student.name}
+          </Text>
+        </Box>
         {cartItems.length >= 1 &&
           cartItems.map((item) => {
             return (
@@ -106,7 +163,13 @@ export default function Cart() {
               <Text fontWeight={800}>{totalPrice}</Text>
             </Flex>
 
-            <Button mt={4} bg="orange.300" onClick={() => {}} width="100%">
+            <Button
+              isLoading={loading}
+              mt={4}
+              bg="orange.300"
+              onClick={submitOrder}
+              width="100%"
+            >
               Proceed with Order
             </Button>
           </div>

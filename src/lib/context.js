@@ -11,6 +11,7 @@ export const StateContext = ({ children }) => {
   const [qty, setQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantitites] = useState(0);
+  const [STUDENT, selectedStudent] = useState("");
 
   //Increase product countity
   const increaseQty = () => {
@@ -24,9 +25,17 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const studentSelector = (student) => {
+    selectedStudent((prev) => ({
+      ...prev,
+      student,
+    }));
+  };
+
   const loginHandler = (user) => {
     setUser(user);
   };
+
   //Add Product To Cart
   const onAdd = (product, quantity) => {
     //Total Price
@@ -98,6 +107,8 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        STUDENT,
+        studentSelector,
         USER,
         loginHandler,
         students,
@@ -115,6 +126,8 @@ export const StateContext = ({ children }) => {
         totalPrice,
         totalQuantities,
         setQty,
+        setCartItems,
+        setTotalQuantitites,
       }}
     >
       {children}
