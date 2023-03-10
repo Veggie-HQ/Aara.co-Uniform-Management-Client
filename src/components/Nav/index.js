@@ -34,7 +34,7 @@ export default function Nav() {
           <div onClick={() => setShowUser(true)}>
             <Flex direction="column" align="center">
               <FiUser />
-              <Text>Profile</Text>
+              <Text _hover={{ cursor: "pointer" }}>Profile</Text>
             </Flex>
           </div>
           <AnimatePresence>{showUser && <User />}</AnimatePresence>
@@ -58,7 +58,7 @@ export default function Nav() {
               )}
               <FiShoppingBag />
             </Flex>
-            <Text>Cart</Text>
+            <Text _hover={{ cursor: "pointer" }}>Cart</Text>
           </div>
         </>
       )}

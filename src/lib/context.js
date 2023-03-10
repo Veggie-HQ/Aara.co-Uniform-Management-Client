@@ -54,7 +54,7 @@ export const StateContext = ({ children }) => {
 
   const onAddStudent = (student) => {
     const exist = students.find((item) => item.name === student.name);
-    console.log("EXIST", exist);
+
     if (exist) {
       // setStudents(
       //   students.map((item) =>

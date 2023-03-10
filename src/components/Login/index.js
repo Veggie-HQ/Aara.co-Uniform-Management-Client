@@ -36,7 +36,6 @@ const Index = () => {
             }));
           }, 1500);
 
-          console.log("USER: ", USER);
           // ...
         })
         .catch((error) => {

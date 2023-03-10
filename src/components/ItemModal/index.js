@@ -60,6 +60,7 @@ const Index = ({ isOpen, onClose, item }) => {
     onAdd(product, qty);
     onClose();
     notify();
+    setQty(1);
   };
 
   return (
