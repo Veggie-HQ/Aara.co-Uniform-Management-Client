@@ -9,7 +9,6 @@ export const UserWrapper = styled(motion.div)`
   height: 100vh;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 100;
   display: flex;
   justify-content: flex-start;
 `;

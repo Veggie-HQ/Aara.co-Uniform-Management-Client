@@ -1,5 +1,4 @@
-import { Flex, Image, Text, Box, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { MdCurrencyRupee } from "react-icons/md";
 import ItemModal from "../ItemModal";
 

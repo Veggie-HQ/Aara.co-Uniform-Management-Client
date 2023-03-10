@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  //Ourt application state
   const [showCart, setShowCart] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [cartItems, setCartItems] = useState([]);

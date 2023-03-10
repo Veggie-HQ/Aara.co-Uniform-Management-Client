@@ -1,9 +1,12 @@
 import Head from "next/head";
 import { LKGUKGData } from "@/data/LKGUKG";
 import Item from "@/components/Item";
-import { Box } from "@chakra-ui/react";
+import { Flex, Box, Select } from "@chakra-ui/react";
+import { useStateContext } from "@/lib/context";
 
 export default function Home() {
+  const { showCart, showUser } = useStateContext();
+
   return (
     <>
       <Head>
@@ -12,10 +15,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box mt="90px">
-        <select placeholder="Select Child">
-          <option>Select Child</option>
-        </select>
+      <Flex mt="90px" direction="column">
+        <Flex
+          zIndex={showCart | showUser ? -1 : 1}
+          width="80%"
+          margin="0px auto"
+        >
+          <Select
+            bg="orange.300"
+            variant="outline"
+            placeholder="Select Student"
+          >
+            {/* <option>Select Child</option> */}
+          </Select>
+        </Flex>
+
         <Box mt={2} width="100%">
           {LKGUKGData.map((item, index) => (
             <>
@@ -23,7 +37,7 @@ export default function Home() {
             </>
           ))}
         </Box>
-      </Box>
+      </Flex>
     </>
   );
 }

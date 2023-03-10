@@ -1,11 +1,13 @@
-import { EmptyStyle } from "@/styles/CartStyles";
 import { UserStyle, UserWrapper } from "@/styles/UserStyles";
-//Import State
+
 import { useStateContext } from "@/lib/context";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
+import InfoContainer from "./InfoContainer";
+import InfoModal from "@/components/InfoModal";
 
 export default function User() {
   const { setShowUser, cartItems } = useStateContext();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   //Payment
   // const handleCheckout = async () => {
@@ -36,17 +38,57 @@ export default function User() {
         transition={{ type: "tween" }}
         onClick={(e) => e.stopPropagation()}
       >
-        {cartItems.length < 1 && (
-          <EmptyStyle
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4 }}
+        <Flex direction="column" align="center" justify="center" p={2}>
+          <Text mb={3} fontWeight={800}>
+            User Profile
+          </Text>
+          <Flex
+            width="100%"
+            align="center"
+            p={2}
+            bg="gray.300"
+            borderRadius="7pt"
+            direction="column"
           >
-            <Flex align="center" justify="center">
-              <Text align="center">User Profile</Text>
+            <Text>Parent Mobile Number</Text>
+            <Text fontWeight={800}>+91 8861302233</Text>
+
+            <Text
+              fontStyle="italic"
+              fontSize="10pt"
+              mt={3}
+              color="orange.500"
+              onClick={() => {}}
+              cursor="pointer"
+            >
+              Change Number
+            </Text>
+          </Flex>
+
+          <Flex
+            width="100%"
+            align="center"
+            p={2}
+            mt={6}
+            bg="gray.300"
+            borderRadius="7pt"
+            direction="column"
+          >
+            <Text>Student Information</Text>
+            <InfoContainer />
+            <InfoModal isOpen={isOpen} onClose={onClose} />
+            <Flex mt={5}>
+              <Button
+                fontSize="10pt"
+                onClick={() => {
+                  onOpen();
+                }}
+              >
+                Add Another Student&apos;s Info
+              </Button>
             </Flex>
-          </EmptyStyle>
-        )}
+          </Flex>
+        </Flex>
       </UserStyle>
     </UserWrapper>
   );

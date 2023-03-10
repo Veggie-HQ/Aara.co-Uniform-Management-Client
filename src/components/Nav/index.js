@@ -21,6 +21,7 @@ export default function Nav() {
       top="0"
       position="fixed"
       width="100%"
+      zIndex={999}
     >
       <div onClick={() => setShowUser(true)}>
         <Flex direction="column" align="center">
