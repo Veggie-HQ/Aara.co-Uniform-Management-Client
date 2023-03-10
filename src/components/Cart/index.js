@@ -81,13 +81,13 @@ export default function Cart() {
           total: Math.round(totalPrice + gst5Total + gst12Total),
         });
 
-        router.push(`/success`);
         setShowCart(false);
         setCartItems([]);
         setTotalQuantitites(0);
         setGst5Total(0.0);
         setGst12Total(0.0);
         setTotalPrice(0);
+        router.push(`/success`);
       });
     } catch (err) {
       setError(err.message);
