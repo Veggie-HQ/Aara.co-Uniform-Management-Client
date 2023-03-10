@@ -20,7 +20,7 @@ const Index = ({ isOpen, onClose, data }) => {
   // console.log(data);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="xs">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
