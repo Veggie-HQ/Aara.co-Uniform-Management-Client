@@ -1,5 +1,6 @@
 export const S6To12Data = [
   {
+    slug: "S612Shirt",
     title: "Shirts",
     price: 540,
     imageURL: "",
@@ -7,6 +8,7 @@ export const S6To12Data = [
     size: ["24", "26", "28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S612Trousers",
     title: "Trousers",
     price: 610,
     imageURL: "",
@@ -27,6 +29,7 @@ export const S6To12Data = [
     ],
   },
   {
+    slug: "S612TrackPants",
     title: "Track Pants",
     price: 430,
     imageURL: "",
@@ -34,6 +37,7 @@ export const S6To12Data = [
     size: ["26", "28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "S612TrackTShirts",
     title: "Track T Shirts",
     price: 425,
     imageURL: "",
@@ -41,6 +45,7 @@ export const S6To12Data = [
     size: ["26", "28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S612WinterJackets",
     title: "Winter Jackets",
     price: 650,
     imageURL: "",
@@ -48,6 +53,7 @@ export const S6To12Data = [
     size: ["28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S612Blazers",
     title: "Blazers",
     price: 1600,
     imageURL: "",
@@ -55,6 +61,7 @@ export const S6To12Data = [
     size: ["28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S612TieLong",
     title: "Tie Long",
     price: 150,
     imageURL: "",
@@ -62,6 +69,7 @@ export const S6To12Data = [
     size: ["One-Size"],
   },
   {
+    slug: "S612Belt",
     title: "Belt",
     price: 100,
     imageURL: "",
@@ -69,6 +77,7 @@ export const S6To12Data = [
     size: ["One-Size"],
   },
   {
+    slug: "S612Socks",
     title: "Socks",
     price: 100,
     imageURL: "",
@@ -79,6 +88,7 @@ export const S6To12Data = [
 
 export const S5 = [
   {
+    slug: "S5Shirt",
     title: "Shirts",
     price: 540,
     imageURL: "",
@@ -86,6 +96,7 @@ export const S5 = [
     size: ["24", "26", "28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S5Trousers",
     title: "Trousers",
     price: 610,
     imageURL: "",
@@ -106,6 +117,7 @@ export const S5 = [
     ],
   },
   {
+    slug: "S5TrackPants",
     title: "Track Pants",
     price: 430,
     imageURL: "",
@@ -113,6 +125,7 @@ export const S5 = [
     size: ["26", "28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "S5TrackTShirts",
     title: "Track T Shirts",
     price: 425,
     imageURL: "",
@@ -120,6 +133,7 @@ export const S5 = [
     size: ["26", "28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S5WinterJackets",
     title: "Winter Jackets",
     price: 650,
     imageURL: "",
@@ -127,6 +141,7 @@ export const S5 = [
     size: ["28", "30", "32", "34", "36", "38", "40", "42", "44"],
   },
   {
+    slug: "S5TieLong",
     title: "Tie Long",
     price: 150,
     imageURL: "",
@@ -134,6 +149,7 @@ export const S5 = [
     size: ["One-Size"],
   },
   {
+    slug: "S5Belt",
     title: "Belt",
     price: 100,
     imageURL: "",
@@ -141,6 +157,7 @@ export const S5 = [
     size: ["One-Size"],
   },
   {
+    slug: "S5Socks",
     title: "Socks",
     price: 100,
     imageURL: "",

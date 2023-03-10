@@ -1,5 +1,6 @@
 export const S1To4Data = [
   {
+    slug: "S14Shirt",
     title: "Shirts",
     price: 490,
     imageURL: "",
@@ -7,6 +8,7 @@ export const S1To4Data = [
     size: ["24", "26", "28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "S14Skirts",
     title: "Skirts",
     price: 525,
     imageURL: "",
@@ -14,6 +16,7 @@ export const S1To4Data = [
     size: ["24", "26", "28", "30"],
   },
   {
+    slug: "S14Shorts",
     title: "Shorts",
     price: 490,
     imageURL: "",
@@ -21,6 +24,7 @@ export const S1To4Data = [
     size: ["24", "26", "28", "30", "32", "34"],
   },
   {
+    slug: "S14TrackPants",
     title: "Track Pants",
     price: 380,
     imageURL: "",
@@ -28,6 +32,7 @@ export const S1To4Data = [
     size: ["26", "28", "30", "32", "34", "36", "38"],
   },
   {
+    slug: "S14TrackTShirt",
     title: "Track T Shirt",
     price: 360,
     imageURL: "",
@@ -35,6 +40,7 @@ export const S1To4Data = [
     size: ["26", "28", "30", "32", "34", "36"],
   },
   {
+    slug: "S14WinterJacket",
     title: "Winter Jacket",
     price: 550,
     imageURL: "",
@@ -42,6 +48,7 @@ export const S1To4Data = [
     size: ["28", "30", "32", "34", "36", "38", "40", "42"],
   },
   {
+    slug: "S14TieKnot",
     title: "Tie Knot",
     price: 100,
     imageURL: "",
@@ -49,6 +56,7 @@ export const S1To4Data = [
     size: ["One-Size"],
   },
   {
+    slug: "S14Belt",
     title: "Belt",
     price: 100,
     imageURL: "",
@@ -56,6 +64,7 @@ export const S1To4Data = [
     size: ["One-Size"],
   },
   {
+    slug: "S14Socks",
     title: "Socks",
     price: 75,
     imageURL: "",
