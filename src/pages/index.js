@@ -1,11 +1,31 @@
 import Head from "next/head";
 import { LKGUKGData } from "@/data/LKGUKG";
+import { S1To4Data } from "@/data/S1To4";
+import { S6To12Data, S5 } from "@/data/S5To12";
+
 import Item from "@/components/Item";
-import { Flex, Box, Select } from "@chakra-ui/react";
+import { Flex, Box, Select, Text } from "@chakra-ui/react";
 import { useStateContext } from "@/lib/context";
+import { useState } from "react";
 
 export default function Home() {
-  const { showCart, showUser } = useStateContext();
+  const [selStudent, setSelStudent] = useState(0);
+  const { showCart, showUser, students } = useStateContext();
+  const [student, setStudent] = useState({
+    name: "",
+    gender: "",
+    goingToClass: "",
+  });
+
+  const onChange = (e) => {
+    setSelStudent(e.target.value);
+    setStudent((prev) => ({
+      ...prev,
+      name: students[selStudent].name,
+      gender: students[selStudent].gender,
+      goingToClass: students[selStudent].goingToClass,
+    }));
+  };
 
   return (
     <>
@@ -20,22 +40,84 @@ export default function Home() {
           zIndex={showCart | showUser ? -1 : 1}
           width="80%"
           margin="0px auto"
+          direction="column"
         >
-          <Select
-            bg="orange.300"
-            variant="outline"
-            placeholder="Select Student"
-          >
-            {/* <option>Select Child</option> */}
-          </Select>
+          <Text fontWeight={600} align="center">
+            Placing an order for:
+          </Text>
+          {students.length > 0 && (
+            <Select
+              bg="orange.300"
+              variant="outline"
+              placeholder="Select Student"
+              onChange={onChange}
+            >
+              {students.map((item, index) => (
+                <>
+                  {/* <option value={0}>Select Student</option> */}
+                  <option key={index} value={index + 1}>
+                    {item.name}
+                  </option>
+                </>
+              ))}
+            </Select>
+          )}
         </Flex>
 
         <Box mt={2} width="100%">
-          {LKGUKGData.map((item, index) => (
+          {student.length === 0 ? (
+            ""
+          ) : (
             <>
-              <Item item={item} />
+              {Number(student.goingToClass) >= 1 &&
+              Number(student.goingToClass) <= 4 ? (
+                <>
+                  {S1To4Data.map((item, index) => (
+                    <>
+                      <Item item={item} key={index} />
+                    </>
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
+              {Number(student.goingToClass) === 5 ? (
+                <>
+                  {S5.map((item, index) => (
+                    <>
+                      <Item item={item} key={index} />
+                    </>
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
+              {Number(student.goingToClass) > 5 &&
+              Number(student.goingToClass) <= 12 ? (
+                <>
+                  {S6To12Data.map((item, index) => (
+                    <>
+                      <Item item={item} key={index} />
+                    </>
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
+              {student.goingToClass.includes("LKG") ||
+              student.goingToClass.includes("UKG") ? (
+                <>
+                  {LKGUKGData.map((item, index) => (
+                    <>
+                      <Item item={item} key={index} />
+                    </>
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </>
-          ))}
+          )}
         </Box>
       </Flex>
     </>
