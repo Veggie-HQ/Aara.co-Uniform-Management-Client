@@ -33,6 +33,8 @@ export default function Cart() {
     USER,
     setCartItems,
     setTotalQuantitites,
+    gst5Total,
+    gst12Total,
   } = useStateContext();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -58,20 +60,19 @@ export default function Cart() {
           cartItems: cartItems,
           studentDetails: STUDENT.student,
           parentInfo: USER.user.phoneNumber,
+          subtotal: totalPrice,
+          gst5Total: gst5Total,
+          gst12Total: gst12Total,
+          roundOff:
+            Math.round(totalPrice + gst5Total + gst12Total) -
+            (totalPrice + gst5Total + gst12Total),
+          total: Math.round(totalPrice + gst5Total + gst12Total),
         });
 
         router.push(`/success`);
         setShowCart(false);
         setCartItems([]);
         setTotalQuantitites(0);
-
-        // transaction.set(
-        //   doc(firestore, `users/${user?.uid}/communitySnippets`, commName),
-        //   {
-        //     communityId: commName,
-        //     isModerator: true,
-        //   }
-        // );
       });
     } catch (err) {
       setError(err.message);
@@ -158,11 +159,46 @@ export default function Cart() {
           })}
 
         {cartItems.length >= 1 && (
-          <div>
+          <Flex direction="column">
             <Flex align="center">
               <Text fontWeight={800}>Subtotal</Text>
               <MdCurrencyRupee />
               <Text fontWeight={800}>{totalPrice}</Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>CGST @2.5</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>{gst5Total / 2}</Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>SGST @2.5</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>{gst5Total / 2}</Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>CGST @6</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>{gst12Total / 2}</Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>SGST @6</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>{gst12Total / 2}</Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>Round Off</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>
+                {Math.round(totalPrice + gst5Total + gst12Total) -
+                  (totalPrice + gst5Total + gst12Total)}
+              </Text>
+            </Flex>
+            <Flex align="center">
+              <Text fontWeight={800}>Total Amount</Text>
+              <MdCurrencyRupee />
+              <Text fontWeight={800}>
+                {Math.round(totalPrice + gst5Total + gst12Total)}
+              </Text>
             </Flex>
 
             <Button
@@ -174,7 +210,19 @@ export default function Cart() {
             >
               Proceed with Order
             </Button>
-          </div>
+
+            {error && (
+              <Text
+                align="center"
+                color="red"
+                fontSize="10pt"
+                fontWeight={800}
+                mt={2}
+              >
+                {error}
+              </Text>
+            )}
+          </Flex>
         )}
       </CartStyle>
     </CartWrapper>

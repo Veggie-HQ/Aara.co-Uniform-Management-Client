@@ -10,6 +10,9 @@ export const StateContext = ({ children }) => {
   const [students, setStudents] = useState([]);
   const [qty, setQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [gst5Total, setGst5Total] = useState(0.0);
+  const [gst12Total, setGst12Total] = useState(0.0);
+
   const [totalQuantities, setTotalQuantitites] = useState(0);
   const [STUDENT, selectedStudent] = useState("");
 
@@ -42,6 +45,17 @@ export const StateContext = ({ children }) => {
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
+
+    if (product.price < 1000) {
+      setGst5Total(
+        (prevGST5Total) => prevGST5Total + 0.05 * quantity * product.price
+      );
+    } else if (product.price >= 1000) {
+      setGst12Total(
+        (prevGST12Total) => prevGST12Total + 0.12 * quantity * product.price
+      );
+    }
+
     //Increase total quantity
     setTotalQuantitites(
       (prevTotalQuantities) => prevTotalQuantities + quantity
@@ -128,6 +142,8 @@ export const StateContext = ({ children }) => {
         setQty,
         setCartItems,
         setTotalQuantitites,
+        gst5Total,
+        gst12Total,
       }}
     >
       {children}

@@ -87,7 +87,7 @@ export default function User() {
                   onOpen();
                 }}
               >
-                Add Another Student&apos;s Info
+                Add Student Info
               </Button>
             </Flex>
           </Flex>
@@ -107,16 +107,6 @@ export default function User() {
           >
             <OrderContainer />
             <InfoModal isOpen={isOpen} onClose={onClose} />
-            <Flex mt={5}>
-              <Button
-                fontSize="10pt"
-                onClick={() => {
-                  onOpen();
-                }}
-              >
-                Add Another Student&apos;s Info
-              </Button>
-            </Flex>
           </Flex>
         </Flex>
       </UserStyle>
