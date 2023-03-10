@@ -1,14 +1,16 @@
-import { Button, Flex, Icon, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { auth, firestore } from "@/firebase/clientApp";
-import { collection, orderBy, query, where, getDocs } from "firebase/firestore";
-import { BiRefresh } from "react-icons/bi";
+import { firestore } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
+import { Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BiRefresh } from "react-icons/bi";
+import { MdCurrencyRupee } from "react-icons/md";
+import EditModal from "@/components/EditModal";
 
 const Index = () => {
   const { USER } = useStateContext();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [ORDERS, setOrders] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -117,13 +119,18 @@ const Index = () => {
                   ))}
                 </Flex>
 
-                <Flex mt={5}>
+                <Flex mt={5} align="center">
                   <Text fontWeight={600} mr={1}>
                     Total:
                   </Text>
+                  <MdCurrencyRupee />
+                  <Text fontWeight={600} mr={1}>
+                    {item.total}
+                  </Text>
                 </Flex>
+                <EditModal isOpen={isOpen} onClose={onClose} />
                 <Flex width="100%" align="center" justify="center" mt={1}>
-                  <Button fontSize="10pt">
+                  <Button fontSize="10pt" onClick={() => onOpen()}>
                     Edit Order
                     <Icon as={AiOutlineEdit} ml={1} />
                   </Button>
