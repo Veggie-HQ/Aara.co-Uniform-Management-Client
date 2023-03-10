@@ -21,7 +21,7 @@ const Index = ({ isOpen, onClose, onConfirm }) => {
       onClose={onClose}
       isOpen={isOpen}
       isCentered
-      size="sm"
+      size="xs"
     >
       <AlertDialogOverlay />
 
