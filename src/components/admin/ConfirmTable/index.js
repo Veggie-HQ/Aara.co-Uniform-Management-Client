@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStateContext } from "@/lib/context";
 import {
   Flex,
@@ -12,12 +12,15 @@ import {
   Tbody,
   TableContainer,
   Input,
+  Button,
 } from "@chakra-ui/react";
 import InvoiceDate from "./utils/InvoiceDate";
 import { MdCurrencyRupee } from "react-icons/md";
 import InWords from "./utils/InWords";
 
 const Index = () => {
+  const [DATA, SETDATA] = useState(null);
+
   const { orderToConfirm } = useStateContext();
   // console.log(orderToConfirm);
   const [recvAmt, setRecvAmt] = useState(0);
@@ -27,7 +30,17 @@ const Index = () => {
   };
   return (
     <>
-      {orderToConfirm !== null ? (
+      <Flex width="100%" justify="center" align="center">
+        <Button
+          align="cenetr"
+          mt={"90px"}
+          bg="orange.300"
+          onClick={() => SETDATA(orderToConfirm)}
+        >
+          Reload Data
+        </Button>
+      </Flex>
+      {DATA === null ? (
         <Flex
           p={3}
           width="80%"
@@ -39,7 +52,7 @@ const Index = () => {
           border="1px solid rgba(255, 255, 255, 0.3)"
           direction="column"
         >
-          {orderToConfirm.order != "" ? (
+          {Object.keys(orderToConfirm).length > 0 != "" ? (
             <>
               <Flex
                 // bg="gray.300"
@@ -49,31 +62,36 @@ const Index = () => {
                 direction="row"
                 justify="space-between"
               >
-                <Stack spacing={0.25}>
-                  <Text fontWeight={800}>INVOICE #: </Text>
+                {Object.keys(orderToConfirm.order.studentDetails).length > 0 ? (
+                  <>
+                    <Stack spacing={0.25}>
+                      <Text fontWeight={800}>INVOICE #: </Text>
 
-                  <Text fontWeight={800}>BILL TO</Text>
-                  <Flex>
-                    <Text fontSize={"12pt"}>Student Name: </Text>
-                    <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                      {orderToConfirm.order.studentDetails.name != ""
-                        ? orderToConfirm.order.studentDetails.name
-                        : ""}
-                    </Text>
-                  </Flex>
-                  <Flex>
-                    <Text fontSize={"12pt"}>Student Gender: </Text>
-                    <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                      {orderToConfirm.order.studentDetails.gender}
-                    </Text>
-                  </Flex>
-                  <Flex>
-                    <Text fontSize={"12pt"}>Going to Class: </Text>
-                    <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                      {orderToConfirm.order.studentDetails.goingToClass}
-                    </Text>
-                  </Flex>
-                </Stack>
+                      <Text fontWeight={800}>BILL TO</Text>
+                      <Flex>
+                        <Text fontSize={"12pt"}>Student Name: </Text>
+                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
+                          {orderToConfirm.order.studentDetails.name}
+                        </Text>
+                      </Flex>
+                      <Flex>
+                        <Text fontSize={"12pt"}>Student Gender: </Text>
+                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
+                          {orderToConfirm.order.studentDetails.gender}
+                        </Text>
+                      </Flex>
+                      <Flex>
+                        <Text fontSize={"12pt"}>Going to Class: </Text>
+                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
+                          {orderToConfirm.order.studentDetails.goingToClass}
+                        </Text>
+                      </Flex>
+                    </Stack>
+                  </>
+                ) : (
+                  ""
+                )}
+
                 <InvoiceDate />
               </Flex>
 
@@ -222,7 +240,7 @@ const Index = () => {
           )}
         </Flex>
       ) : (
-        ""
+        <Text>DATA IS NULL</Text>
       )}
     </>
   );

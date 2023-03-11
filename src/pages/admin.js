@@ -65,6 +65,30 @@ export default function Home() {
           </Text>
         </Flex>
       )} */}
+      {user && (
+        <Flex
+          zIndex={showConfirmedOrders | showPendingOrders ? -1 : 999}
+          bg="orange.200"
+          width="10%"
+          p={2}
+          bottom="0"
+          right="0"
+          position={"fixed"}
+          mt="20%"
+          // zIndex={999}
+          align="center"
+          justify="center"
+        >
+          <Text
+            transition="0.4s"
+            cursor="pointer"
+            onClick={() => logout()}
+            _hover={{ transform: "translateY(-5px)" }}
+          >
+            sign out
+          </Text>
+        </Flex>
+      )}
     </>
   );
 }

@@ -30,9 +30,10 @@ const Confirm = () => {
           <Flex
             zIndex={showConfirmedOrders | showPendingOrders ? -1 : 999}
             bg="orange.200"
-            width="100%"
+            width="10%"
             p={2}
             bottom="0"
+            right="0"
             position={"fixed"}
             mt="20%"
             // zIndex={999}
