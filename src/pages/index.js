@@ -10,20 +10,20 @@ import { Box, Flex, Select, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
-  const [selStudent, setSelStudent] = useState(0);
-  const { showCart, showUser, students, USER, studentSelector, insertData } =
+  const { showCart, showUser, students, USER, studentSelector } =
     useStateContext();
-  const [student, setStudent] = useState([]);
+  const [student, setStudent] = useState(students[0]);
 
   const onChange = (e) => {
-    setSelStudent(e.target.value);
-    setStudent((prev) => ({
-      ...prev,
-      name: students[selStudent].name,
-      gender: students[selStudent].gender,
-      goingToClass: students[selStudent].goingToClass,
-    }));
-    studentSelector(students[selStudent]);
+    if (e.target.value >= 0) {
+      setStudent((prev) => ({
+        ...prev,
+        name: students[e.target.value].name,
+        gender: students[e.target.value].gender,
+        goingToClass: students[e.target.value].goingToClass,
+      }));
+      studentSelector(students[e.target.value]);
+    }
   };
 
   return (
@@ -48,81 +48,93 @@ export default function Home() {
               margin="0px auto"
               direction="column"
             >
-              <Text fontWeight={600} align="center">
-                Placing an order for:
-              </Text>
-              {students.length > 0 && (
-                <Select
-                  bg="orange.300"
-                  variant="outline"
-                  placeholder="Select Student"
-                  onChange={onChange}
-                >
-                  {students.map((item, index) => (
-                    <>
-                      <option key={index} value={index + 1}>
-                        {item.name}
-                      </option>
-                    </>
-                  ))}
-                </Select>
-              )}
-            </Flex>
-            <Box mt={2} width="100%">
-              {student.length === 0 ? (
-                ""
+              {students.length > 0 ? (
+                <>
+                  <Text fontWeight={600} align="center" mt={2}>
+                    Placing an order for:
+                  </Text>
+                  <select
+                    className="selectTab"
+                    placeholder="Select Student"
+                    onChange={onChange}
+                  >
+                    <option value="-1">Select Student</option>
+
+                    {students.map((item, index) => (
+                      <>
+                        <option key={index} value={index}>
+                          {item.name}
+                        </option>
+                      </>
+                    ))}
+                  </select>
+                </>
               ) : (
                 <>
-                  {Number(student.goingToClass) >= 1 &&
-                  Number(student.goingToClass) <= 4 ? (
-                    <>
-                      {S1To4Data.map((item, index) => (
-                        <>
-                          <Item item={item} key={index} />
-                        </>
-                      ))}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  {Number(student.goingToClass) === 5 ? (
-                    <>
-                      {S5.map((item, index) => (
-                        <>
-                          <Item item={item} key={index} />
-                        </>
-                      ))}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  {Number(student.goingToClass) > 5 &&
-                  Number(student.goingToClass) <= 12 ? (
-                    <>
-                      {S6To12Data.map((item, index) => (
-                        <>
-                          <Item item={item} key={index} />
-                        </>
-                      ))}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  {student.goingToClass.includes("LKG") ||
-                  student.goingToClass.includes("UKG") ? (
-                    <>
-                      {LKGUKGData.map((item, index) => (
-                        <>
-                          <Item item={item} key={index} />
-                        </>
-                      ))}
-                    </>
-                  ) : (
-                    ""
-                  )}
+                  <Text fontWeight={600} align="center" mt={2}>
+                    Visit the Profile Tab to Enter Student Information and begin
+                    the Ordering Process
+                  </Text>
                 </>
               )}
-            </Box>
+            </Flex>
+            {student && (
+              <Box mt={2} width="100%">
+                {student.length === 0 ? (
+                  ""
+                ) : (
+                  <>
+                    {Number(student.goingToClass) >= 1 &&
+                    Number(student.goingToClass) <= 4 ? (
+                      <>
+                        {S1To4Data.map((item, index) => (
+                          <>
+                            <Item item={item} key={index} />
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {Number(student.goingToClass) === 5 ? (
+                      <>
+                        {S5.map((item, index) => (
+                          <>
+                            <Item item={item} key={index} />
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {Number(student.goingToClass) > 5 &&
+                    Number(student.goingToClass) <= 12 ? (
+                      <>
+                        {S6To12Data.map((item, index) => (
+                          <>
+                            <Item item={item} key={index} />
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {student.goingToClass.includes("LKG") ||
+                    student.goingToClass.includes("UKG") ? (
+                      <>
+                        {LKGUKGData.map((item, index) => (
+                          <>
+                            <Item item={item} key={index} />
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </>
+                )}
+              </Box>
+            )}
           </>
         )}
       </Flex>
