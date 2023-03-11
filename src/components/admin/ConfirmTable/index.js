@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
 import { useStateContext } from "@/lib/context";
 import {
+  Box,
+  Button,
   Flex,
+  Input,
   Stack,
-  Text,
   Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
   Thead,
   Tr,
-  Th,
-  Td,
-  Tbody,
-  TableContainer,
-  Input,
-  Button,
 } from "@chakra-ui/react";
-import InvoiceDate from "./utils/InvoiceDate";
+import { useState } from "react";
 import { MdCurrencyRupee } from "react-icons/md";
 import InWords from "./utils/InWords";
-// import { firestore } from "@/firebase/clientApp";
-// import { doc, runTransaction } from "firebase/firestore";
+import InvoiceDate from "./utils/InvoiceDate";
+import { jsPDF } from "jspdf";
 
 const Index = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [INV, SetINV] = useState(0);
-  const [download, allowDownload] = useState(false);
+  const [download, allowDownload] = useState(true);
 
   const { orderToConfirm } = useStateContext();
   // console.log(orderToConfirm);
@@ -69,7 +69,7 @@ const Index = () => {
       });
 
       // CHANGE INVOICE NUMBER HERE
-      IN = 127 + currIndex;
+      IN = 999 + currIndex;
 
       let modDetails = {
         ...order_details,
@@ -88,7 +88,7 @@ const Index = () => {
       SetINV(IN);
 
       setTimeout(() => {
-        // allowDownload(true);
+        allowDownload(false);
       }, 750);
     } catch (error) {
       console.log(error);
@@ -96,25 +96,70 @@ const Index = () => {
     setLoading(false);
   }
 
+  const invoiceDownloader = () => {
+    let element = document.getElementById("contents");
+    let b = document.getElementById("remBalance");
+    b.style.display = "none";
+
+    let h = document.getElementById("invoiceheader");
+    h.classList.remove("useless");
+
+    let doc = new jsPDF();
+    doc.html(element, {
+      callback: function (doc) {
+        doc.save(`INVOICE #${INV}.pdf`);
+      },
+      margin: [10, 0, 0, 20],
+      autoPaging: "text",
+      x: 0,
+      y: 0,
+      width: 175,
+      windowWidth: 1000,
+    });
+
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 3000);
+  };
+
   return (
     <>
-      <Flex width="100%" justify="center" align="center"></Flex>
+      {/* <Flex width="100%" justify="center" align="center"></Flex> */}
       {Object.keys(orderToConfirm).length > 0 ? (
         <Flex
           p={3}
+          id="contents"
           width="80%"
           margin="30px auto 0px auto"
-          bg="rgb(152 151 151 / 25%)"
-          borderRadius="7pt"
-          boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-          backdropFilter="blur(5px)"
-          border="1px solid rgba(255, 255, 255, 0.3)"
+          // bg="rgb(152 151 151 / 25%)"
+          bg="white"
+          // borderRadius="7pt"
+          // boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
+          // backdropFilter="blur(5px)"
+          // border="1px solid rgba(255, 255, 255, 0.3)"
           direction="column"
         >
+          <Box
+            width="100%"
+            className="useless invoiceheader"
+            id="invoiceheader"
+          >
+            <Text
+              align="center"
+              fontWeight={800}
+              border="1px solid black"
+              width="10%"
+              margin="0px auto"
+            >
+              TAX INVOICE
+            </Text>
+            <img src="/assets/header.png" alt="invoiceheader" />
+          </Box>
           {Object.keys(orderToConfirm).length > 0 != "" ? (
             <>
               <Flex
                 // bg="gray.300"
+                mt={5}
                 border="1px solid black"
                 p={2}
                 borderRadius="7pt"
@@ -124,7 +169,7 @@ const Index = () => {
                 {Object.keys(orderToConfirm.order.studentDetails).length > 0 ? (
                   <>
                     <Stack spacing={0.25}>
-                      <Text fontWeight={800}>INVOICE #: </Text>
+                      <Text fontWeight={800}>INVOICE #: {INV}</Text>
 
                       <Text fontWeight={800}>BILL TO</Text>
                       <Flex>
@@ -270,7 +315,13 @@ const Index = () => {
                     </Flex>
                   </Flex>
 
-                  <Flex mt={4} p={1} direction="column" align="center">
+                  <Flex
+                    mt={4}
+                    p={1}
+                    direction="column"
+                    align="center"
+                    id="remBalance"
+                  >
                     <Text fontSize={"10pt"} fontWeight={600}>
                       Enter Received Amount:
                     </Text>
@@ -293,7 +344,7 @@ const Index = () => {
                   </Flex>
                 </Flex>
               </Flex>
-              <Flex width="100%" align="center" justify="center">
+              <Flex width="100%" align="center" justify="center" id="hidden">
                 <Button
                   bg="orange.300"
                   _hover={{ bg: "orange.100" }}
@@ -301,6 +352,15 @@ const Index = () => {
                   isLoading={loading}
                 >
                   Confirm Order
+                </Button>
+                <Button
+                  ml={2}
+                  bg="blue.300"
+                  _hover={{ bg: "blue.100" }}
+                  onClick={() => invoiceDownloader()}
+                  isDisabled={download}
+                >
+                  Download Invoice
                 </Button>
                 {error && (
                   <Text

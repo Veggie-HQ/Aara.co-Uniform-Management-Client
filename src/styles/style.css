@@ -3,3 +3,7 @@
     border-radius: 7pt;
     background-color: rgb(254, 201, 101);
 }
+
+.useless {
+  display: none;
+}
