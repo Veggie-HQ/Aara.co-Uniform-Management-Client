@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import { useStateContext } from "@/lib/context";
+import { useStateContext } from "@/lib/client/context";
 
 const InfoContainer = () => {
   const { students } = useStateContext();

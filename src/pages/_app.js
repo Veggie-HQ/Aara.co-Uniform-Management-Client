@@ -1,7 +1,7 @@
 import { theme } from "@/chakra/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 import Nav from "@/components/Nav";
-import { StateContext } from "@/lib/context";
+import { StateContext } from "@/lib/client/context";
 import { Toaster } from "react-hot-toast";
 import "@/styles/style.css";
 

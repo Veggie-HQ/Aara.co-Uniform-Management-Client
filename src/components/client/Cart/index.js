@@ -1,34 +1,28 @@
+import Confirmation from "@/components/client/Confirmation";
+import { firestore } from "@/firebase/clientApp";
+import { useStateContext } from "@/lib/client/context";
 import {
-  CartStyle,
   Card,
-  EmptyStyle,
-  CartWrapper,
   CardInfo,
+  CartStyle,
+  CartWrapper,
+  EmptyStyle,
 } from "@/styles/CartStyles";
 import { Quantity } from "@/styles/ProductDetails";
-import { FaShoppingCart } from "react-icons/fa";
-import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
-import { MdCurrencyRupee } from "react-icons/md";
-import { useStateContext } from "@/lib/context";
 import {
+  Box,
+  Button,
   Flex,
   Image,
   Text,
-  Box,
-  Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import {
-  doc,
-  getDoc,
-  runTransaction,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
-import { firestore, auth } from "@/firebase/clientApp";
+import { doc, runTransaction } from "firebase/firestore";
 import { useRouter } from "next/router";
-import Confirmation from "@/components/Confirmation";
+import { useState } from "react";
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import { FaShoppingCart } from "react-icons/fa";
+import { MdCurrencyRupee } from "react-icons/md";
 
 export default function Cart() {
   const { isOpen, onOpen, onClose } = useDisclosure();

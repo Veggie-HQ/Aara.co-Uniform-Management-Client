@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { FiShoppingBag, FiUser } from "react-icons/fi";
-import { NavItems } from "@/styles/NavStyles";
-// import Cart from "./Cart";
-import { useStateContext } from "@/lib/context";
-import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
-import Cart from "../Cart";
-import User from "../User";
+import { useStateContext } from "@/lib/client/context";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import Cart from "../client/Cart";
+import User from "../client/User";
 const { AnimatePresence, motion } = require("framer-motion");
 
 export default function Nav() {

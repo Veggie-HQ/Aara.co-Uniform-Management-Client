@@ -1,12 +1,11 @@
 import { firestore } from "@/firebase/clientApp";
-import { useStateContext } from "@/lib/context";
+import { useStateContext } from "@/lib/client/context";
 import { Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
 import { MdCurrencyRupee } from "react-icons/md";
-import EditModal from "@/components/EditModal";
 
 const Index = () => {
   const { USER } = useStateContext();
@@ -55,8 +54,6 @@ const Index = () => {
       {ORDERS != ""
         ? ORDERS.orders.map((item, index) => (
             <>
-              <EditModal isOpen={isOpen} onClose={onClose} data={item} />
-
               <Flex
                 key={index}
                 width="95%"

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Quantity } from "@/styles/ProductDetails";
 import { MdCurrencyRupee } from "react-icons/md";
-import { useStateContext } from "@/lib/context";
+import { useStateContext } from "@/lib/client/context";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import toast from "react-hot-toast";
 

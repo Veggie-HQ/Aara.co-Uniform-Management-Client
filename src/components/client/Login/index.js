@@ -2,7 +2,7 @@ import { Button, Flex, Input, Text, Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@/firebase/clientApp";
-import { useStateContext } from "@/lib/context";
+import { useStateContext } from "@/lib/client/context";
 
 const Index = () => {
   const [number, setNumber] = useState("+91");
