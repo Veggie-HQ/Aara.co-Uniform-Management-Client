@@ -12,21 +12,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 import Link from "next/link";
 
 export default function Home() {
-  const { showCart, showUser, students, USER, studentSelector } =
-    useStateContext();
-  const [student, setStudent] = useState(students[0]);
-
-  const onChange = (e) => {
-    if (e.target.value >= 0) {
-      setStudent((prev) => ({
-        ...prev,
-        name: students[e.target.value].name,
-        gender: students[e.target.value].gender,
-        goingToClass: students[e.target.value].goingToClass,
-      }));
-      studentSelector(students[e.target.value]);
-    }
-  };
+  const { showCart, showUser, students, ADMIN } = useStateContext();
 
   return (
     <>
@@ -38,9 +24,13 @@ export default function Home() {
       </Head>
 
       <Flex mt="90px" direction="column">
-        <Flex align="center" justify="center" direction="column">
-          <Login />
-        </Flex>
+        {!ADMIN ? (
+          <Flex align="center" justify="center" direction="column">
+            <Login />
+          </Flex>
+        ) : (
+          <Text>You have Logged in to Admin Page</Text>
+        )}
       </Flex>
     </>
   );

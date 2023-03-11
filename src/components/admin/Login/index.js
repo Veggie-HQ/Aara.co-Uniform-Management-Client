@@ -24,13 +24,10 @@ const Index = () => {
   };
 
   const onSubmit = (e) => {
-    console.log(loginDetails);
     e.preventDefault();
     try {
       signInWithEmailAndPassword(loginDetails.email, loginDetails.password);
       adminLoginHandler(user);
-      console.log("USER", user);
-      console.log("ADMIN", ADMIN);
     } catch (error) {
       setErr(error.message);
     }
@@ -38,7 +35,7 @@ const Index = () => {
 
   return (
     <Flex
-      align="center"
+      maxWidth="800px"
       justify="center"
       direction="column"
       mt={5}
@@ -49,9 +46,31 @@ const Index = () => {
       p={3}
     >
       <form onSubmit={onSubmit}>
-        <Flex align="center" justify="center" direction="column" mt={5} p={3}>
-          <Text fontSize="15pt" fontWeight={600} color="orange.500">
-            Aara Admin
+        <Flex
+          bg="rgb(152 151 151 / 25%)"
+          borderRadius="7pt"
+          boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
+          backdropFilter="blur(5px)"
+          border="1px solid rgba(255, 255, 255, 0.3)"
+          maxWidth="400px"
+          width="65%"
+          margin="0px auto"
+          align="center"
+          transition={"0.4s"}
+          justify="center"
+          direction="column"
+          _hover={{ transform: "translateY(-5px)" }}
+          mt={5}
+          p={3}
+        >
+          <Text
+            cursor={"pointer"}
+            fontSize="15pt"
+            fontWeight={600}
+            color="orange.400"
+            mb={5}
+          >
+            Login to Aara Admin
           </Text>
           <Input
             required
@@ -105,6 +124,7 @@ const Index = () => {
             mt={2}
             mb={2}
             isLoading={loading}
+            _hover={{ bg: "orange.300", color: "black" }}
           >
             Login
           </Button>

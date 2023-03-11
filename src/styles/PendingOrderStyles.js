@@ -2,7 +2,7 @@ import styled from "styled-components";
 //Animation
 const { motion } = require("framer-motion");
 
-export const UserWrapper = styled(motion.div)`
+export const POWrapper = styled(motion.div)`
   position: fixed;
   left: 0;
   top: 0;
@@ -13,8 +13,8 @@ export const UserWrapper = styled(motion.div)`
   justify-content: flex-start;
 `;
 
-export const UserStyle = styled(motion.div)`
-  width: 75%;
+export const POStyle = styled(motion.div)`
+  width: 50%;
   background: #f1f1f1;
   padding: 0.5rem 1.25rem;
   overflow-y: scroll;

@@ -1,13 +1,22 @@
 import Link from "next/link";
-import { FiShoppingBag, FiUser } from "react-icons/fi";
+import { FaFileInvoiceDollar } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useStateContext } from "@/lib/context";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import Cart from "../client/Cart";
-import User from "../client/User";
+import ConfirmedOrdersTab from "../admin/ConfirmedOrders";
+import PendingOrdersTab from "../admin/PendingOrders";
+
 const { AnimatePresence, motion } = require("framer-motion");
 
 const AdminView = () => {
-  const { ADMIN } = useStateContext();
+  const {
+    ADMIN,
+    showConfirmedOrders,
+    setShowConfirmedOrders,
+    showPendingOrders,
+    setShowPendingOrders,
+    totalConfirmedOrders,
+  } = useStateContext();
   return (
     <Flex
       height="80px"
@@ -21,31 +30,40 @@ const AdminView = () => {
     >
       {ADMIN && (
         <>
-          <div onClick={() => setShowUser(true)}>
+          <div onClick={() => setShowPendingOrders(true)}>
             <Flex direction="column" align="center">
-              <FiUser />
-              <Text _hover={{ cursor: "pointer" }}>Admin</Text>
+              <AiOutlineSearch />
+              <Text _hover={{ cursor: "pointer" }}>Pending Orders</Text>
             </Flex>
           </div>
-          {/* <AnimatePresence>{showUser && <User />}</AnimatePresence> */}
+          <AnimatePresence>
+            {showPendingOrders && <PendingOrdersTab />}
+          </AnimatePresence>
         </>
       )}
 
-      <Box>
-        <Link href="/">
+      <Flex align="center">
+        <Link href="/admin">
           <Image src="/assets/logo.jpg" alt="Aara.co Logo" width="100px" />
         </Link>
-      </Box>
+      </Flex>
 
       {ADMIN && (
         <>
-          <div onClick={() => setShowCart(true)}>
+          <div onClick={() => setShowConfirmedOrders(true)}>
             <Flex direction="column" align="center">
-              <FiShoppingBag />
+              {totalConfirmedOrders > 0 && (
+                <motion.span animate={{ scale: 1 }} initial={{ scale: 0 }}>
+                  {totalConfirmedOrders}
+                </motion.span>
+              )}
+              <FaFileInvoiceDollar />
             </Flex>
-            <Text _hover={{ cursor: "pointer" }}>Cart</Text>
+            <Text _hover={{ cursor: "pointer" }}>Confirmed Orders</Text>
           </div>
-          {/* <AnimatePresence>{showCart && <Cart />}</AnimatePresence> */}
+          <AnimatePresence>
+            {showConfirmedOrders && <ConfirmedOrdersTab />}
+          </AnimatePresence>
         </>
       )}
     </Flex>

@@ -113,6 +113,9 @@ export const StateContext = ({ children }) => {
 
   // Admin Context Begins HERE
   const [ADMIN, setAdmin] = useState(null);
+  const [showConfirmedOrders, setShowConfirmedOrders] = useState(false);
+  const [showPendingOrders, setShowPendingOrders] = useState(false);
+  const [totalConfirmedOrders, setTotalConfirmedOrders] = useState(0);
 
   const adminLoginHandler = (adminDetails) => {
     setAdmin(adminDetails);
@@ -153,6 +156,12 @@ export const StateContext = ({ children }) => {
         // ADMIN CONTEXT VARS
         ADMIN,
         adminLoginHandler,
+        showConfirmedOrders,
+        setShowConfirmedOrders,
+        showPendingOrders,
+        setShowPendingOrders,
+        totalConfirmedOrders,
+        setTotalConfirmedOrders,
       }}
     >
       {children}
