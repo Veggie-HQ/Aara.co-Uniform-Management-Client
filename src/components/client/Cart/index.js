@@ -50,11 +50,14 @@ export default function Cart() {
     if (error) setError("");
     setLoading(true);
 
+    let d = new Date(); // for now
+    let timeString = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+
     try {
       const commDocRef = doc(
         firestore,
         "clientOrders",
-        `${USER.user.phoneNumber}-${STUDENT.student.name}`
+        `${USER.user.phoneNumber}-${STUDENT.student.name}-${timeString}`
       );
       await runTransaction(firestore, async (transaction) => {
         const commDoc = await transaction.get(commDocRef);

@@ -1,9 +1,11 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { MdCurrencyRupee } from "react-icons/md";
+import { useStateContext } from "@/lib/context";
 
 const OrderCard = ({ order }) => {
-  //   console.log(order);
+  const { confirmationHandler, orderToConfirm, setShowPendingOrders } =
+    useStateContext();
   return (
     <Flex
       width="95%"
@@ -79,7 +81,11 @@ const OrderCard = ({ order }) => {
         bg="white"
         variant="sm"
         mt={3}
-        onClick={() => console.log("ORDER CLICKED:", order)}
+        onClick={() => {
+          confirmationHandler(order);
+          setShowPendingOrders(false);
+          //   console.log("ORDERTOCONFIRM", orderToConfirm);
+        }}
       >
         Select Order
       </Button>

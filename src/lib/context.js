@@ -116,9 +116,17 @@ export const StateContext = ({ children }) => {
   const [showConfirmedOrders, setShowConfirmedOrders] = useState(false);
   const [showPendingOrders, setShowPendingOrders] = useState(false);
   const [totalConfirmedOrders, setTotalConfirmedOrders] = useState(0);
+  const [orderToConfirm, setOrderToConfirm] = useState({});
 
   const adminLoginHandler = (adminDetails) => {
     setAdmin(adminDetails);
+  };
+
+  const confirmationHandler = (order) => {
+    setOrderToConfirm((prev) => ({
+      ...prev,
+      order,
+    }));
   };
 
   return (
@@ -162,6 +170,8 @@ export const StateContext = ({ children }) => {
         setShowPendingOrders,
         totalConfirmedOrders,
         setTotalConfirmedOrders,
+        orderToConfirm,
+        confirmationHandler,
       }}
     >
       {children}

@@ -2,17 +2,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Head from "next/head";
 import { auth } from "@/firebase/clientApp";
 import { User, signOut } from "firebase/auth";
-
+import ConfirmTable from "@/components/admin/ConfirmTable";
 import Login from "@/components/admin/Login";
 import { useStateContext } from "@/lib/context";
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { BsArrowUpRight } from "react-icons/bs";
-import Link from "next/link";
 
 export default function Home() {
   const [user] = useAuthState(auth);
-  const { showConfirmedOrders, showPendingOrders } = useStateContext();
+  const { showConfirmedOrders, showPendingOrders, orderToConfirm } =
+    useStateContext();
   const logout = async () => {
     await signOut(auth);
   };
@@ -40,6 +39,8 @@ export default function Home() {
           </>
         )}
       </Flex>
+
+      {orderToConfirm.user != null ? <ConfirmTable /> : ""}
 
       {user && (
         <Flex

@@ -90,6 +90,17 @@ export default function Home() {
             </Flex>
             {student && (
               <Box mt={2} width="100%">
+                <Text
+                  align="center"
+                  mb={3}
+                  mt={3}
+                  fontStyle="italic"
+                  fontWeight={600}
+                  fontSize={"12pt"}
+                >
+                  The items displayed in the pictures are solely for
+                  representational purposes
+                </Text>
                 {student.length === 0 ? (
                   ""
                 ) : (
