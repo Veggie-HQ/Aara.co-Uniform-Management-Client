@@ -5,10 +5,12 @@ import Link from "next/link";
 
 import AdminView from "./AdminView";
 import ClientView from "./ClientView";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/clientApp";
 
 export default function Nav() {
   const { USER, ADMIN } = useStateContext();
-
+  const [user] = useAuthState(auth);
   return (
     <Flex
       height="80px"

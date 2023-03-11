@@ -1,9 +1,8 @@
-import { LKGUKGData } from "@/data/LKGUKG";
-import { S1To4Data } from "@/data/S1To4";
-import { S5, S6To12Data } from "@/data/S5To12";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Head from "next/head";
+import { auth } from "@/firebase/clientApp";
+import { User, signOut } from "firebase/auth";
 
-import Item from "@/components/client/Item";
 import Login from "@/components/admin/Login";
 import { useStateContext } from "@/lib/context";
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
@@ -12,8 +11,11 @@ import { BsArrowUpRight } from "react-icons/bs";
 import Link from "next/link";
 
 export default function Home() {
-  const { showCart, showUser, students, ADMIN } = useStateContext();
-
+  const [user] = useAuthState(auth);
+  const { showConfirmedOrders, showPendingOrders } = useStateContext();
+  const logout = async () => {
+    await signOut(auth);
+  };
   return (
     <>
       <Head>
@@ -24,14 +26,44 @@ export default function Home() {
       </Head>
 
       <Flex mt="90px" direction="column">
-        {!ADMIN ? (
+        {!user ? (
           <Flex align="center" justify="center" direction="column">
             <Login />
           </Flex>
         ) : (
-          <Text>You have Logged in to Admin Page</Text>
+          <>
+            <Flex width="80%" margin="0px auto" direction="column">
+              <Text fontWeight={600} align="center" mt={2}>
+                Select an order to view it&apos;s details
+              </Text>
+            </Flex>
+          </>
         )}
       </Flex>
+
+      {user && (
+        <Flex
+          zIndex={showConfirmedOrders | showPendingOrders ? -1 : 999}
+          bg="orange.200"
+          width="100%"
+          p={2}
+          bottom="0"
+          position={"fixed"}
+          mt="20%"
+          // zIndex={999}
+          align="center"
+          justify="center"
+        >
+          <Text
+            transition="0.4s"
+            cursor="pointer"
+            onClick={() => logout()}
+            _hover={{ transform: "translateY(-5px)" }}
+          >
+            sign out
+          </Text>
+        </Flex>
+      )}
     </>
   );
 }

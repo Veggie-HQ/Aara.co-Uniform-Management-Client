@@ -5,10 +5,15 @@ import { useStateContext } from "@/lib/context";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import ConfirmedOrdersTab from "../admin/ConfirmedOrders";
 import PendingOrdersTab from "../admin/PendingOrders";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/clientApp";
+import { useEffect } from "react";
 
 const { AnimatePresence, motion } = require("framer-motion");
 
 const AdminView = () => {
+  const [user] = useAuthState(auth);
+
   const {
     ADMIN,
     showConfirmedOrders,
@@ -28,7 +33,7 @@ const AdminView = () => {
       width="100%"
       zIndex={999}
     >
-      {ADMIN && (
+      {ADMIN || user ? (
         <>
           <div onClick={() => setShowPendingOrders(true)}>
             <Flex direction="column" align="center">
@@ -40,6 +45,8 @@ const AdminView = () => {
             {showPendingOrders && <PendingOrdersTab />}
           </AnimatePresence>
         </>
+      ) : (
+        ""
       )}
 
       <Flex align="center">

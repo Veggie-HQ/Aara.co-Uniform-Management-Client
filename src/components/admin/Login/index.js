@@ -13,6 +13,7 @@ const Index = () => {
     password: "",
   });
   const [err, setErr] = useState("");
+  const [conf, setConf] = useState(false);
 
   const { ADMIN, adminLoginHandler } = useStateContext();
 
@@ -27,7 +28,14 @@ const Index = () => {
     e.preventDefault();
     try {
       signInWithEmailAndPassword(loginDetails.email, loginDetails.password);
-      adminLoginHandler(user);
+      setTimeout(() => {
+        adminLoginHandler((prev) => ({
+          ...prev,
+          user,
+        }));
+
+        if (user) setConf(true);
+      }, 1000);
     } catch (error) {
       setErr(error.message);
     }
@@ -128,6 +136,19 @@ const Index = () => {
           >
             Login
           </Button>
+          {conf && (
+            <>
+              <Text
+                align="center"
+                color="green"
+                fontSize="10pt"
+                fontWeight={800}
+                mt={2}
+              >
+                Successfully Logged in
+              </Text>
+            </>
+          )}
           {(err || userError) && (
             <Text
               color="red.500"
