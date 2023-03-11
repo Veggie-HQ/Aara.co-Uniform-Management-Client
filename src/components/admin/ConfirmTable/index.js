@@ -17,9 +17,14 @@ import {
 import InvoiceDate from "./utils/InvoiceDate";
 import { MdCurrencyRupee } from "react-icons/md";
 import InWords from "./utils/InWords";
+// import { firestore } from "@/firebase/clientApp";
+// import { doc, runTransaction } from "firebase/firestore";
 
 const Index = () => {
-  const [DATA, SETDATA] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [INV, SetINV] = useState(0);
+  const [download, allowDownload] = useState(false);
 
   const { orderToConfirm } = useStateContext();
   // console.log(orderToConfirm);
@@ -28,19 +33,73 @@ const Index = () => {
   const onChange = (e) => {
     setRecvAmt(e.target.value);
   };
+  let currKey = "";
+  let currIndex;
+  let IN;
+  let counter = 1;
+
+  async function PushOrderToDB(order_details) {
+    setLoading(true);
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_REALTIME_1, {
+        method: "POST",
+        body: JSON.stringify(order_details),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      currKey = data["name"];
+      // console.log("pushed1");
+
+      const res1 = await fetch(process.env.NEXT_PUBLIC_REALTIME_1);
+      // console.log("fetching");
+      const data1 = await res1.json().then((res) => {
+        // console.log("fetching 2");
+        let x = Object.keys(res);
+        for (let i = 0; i < x.length; i++) {
+          // console.log(x[i] + " : " + currKey);
+          if (x[i] === currKey) {
+            // console.log("curr", currKey);
+            currIndex = i;
+
+            break;
+          }
+        }
+      });
+
+      // CHANGE INVOICE NUMBER HERE
+      IN = 127 + currIndex;
+
+      let modDetails = {
+        ...order_details,
+        invoice_number: IN,
+      };
+
+      const res2 = await fetch(process.env.NEXT_PUBLIC_REALTIME_2, {
+        method: "POST",
+        body: JSON.stringify(modDetails),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data2 = await res2.json();
+      // console.log("pushed2");
+      SetINV(IN);
+
+      setTimeout(() => {
+        // allowDownload(true);
+      }, 750);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
   return (
     <>
-      <Flex width="100%" justify="center" align="center">
-        <Button
-          align="cenetr"
-          mt={"90px"}
-          bg="orange.300"
-          onClick={() => SETDATA(orderToConfirm)}
-        >
-          Reload Data
-        </Button>
-      </Flex>
-      {DATA === null ? (
+      <Flex width="100%" justify="center" align="center"></Flex>
+      {Object.keys(orderToConfirm).length > 0 ? (
         <Flex
           p={3}
           width="80%"
@@ -234,13 +293,35 @@ const Index = () => {
                   </Flex>
                 </Flex>
               </Flex>
+              <Flex width="100%" align="center" justify="center">
+                <Button
+                  bg="orange.300"
+                  _hover={{ bg: "orange.100" }}
+                  onClick={() => PushOrderToDB(orderToConfirm.order)}
+                  isLoading={loading}
+                >
+                  Confirm Order
+                </Button>
+                {error && (
+                  <Text
+                    align="center"
+                    color="red"
+                    fontSize="10pt"
+                    fontWeight={800}
+                    mt={2}
+                  >
+                    {error}
+                  </Text>
+                )}
+              </Flex>
             </>
           ) : (
             ""
           )}
         </Flex>
       ) : (
-        <Text>DATA IS NULL</Text>
+        // <Text>DATA IS NULL</Text>
+        ""
       )}
     </>
   );
