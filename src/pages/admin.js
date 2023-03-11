@@ -31,16 +31,16 @@ export default function Home() {
           </Flex>
         ) : (
           <>
-            <Flex width="80%" margin="0px auto" direction="column">
+            {/* <Flex width="80%" margin="0px auto" direction="column">
               <Text fontWeight={600} align="center" mt={2}>
                 Select an order to view it&apos;s details
               </Text>
-            </Flex>
+            </Flex> */}
           </>
         )}
       </Flex>
 
-      {orderToConfirm.user != null ? <ConfirmTable /> : ""}
+      {/* {orderToConfirm ? <ConfirmTable /> : ""}
 
       {user && (
         <Flex
@@ -64,7 +64,7 @@ export default function Home() {
             sign out
           </Text>
         </Flex>
-      )}
+      )} */}
     </>
   );
 }

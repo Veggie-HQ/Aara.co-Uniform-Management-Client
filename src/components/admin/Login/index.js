@@ -5,6 +5,7 @@ import { auth } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Index = () => {
   const [signInWithEmailAndPassword, user, loading, userError] =
@@ -15,6 +16,7 @@ const Index = () => {
   });
   const [err, setErr] = useState("");
   const [conf, setConf] = useState(false);
+  const router = useRouter();
 
   const { ADMIN, adminLoginHandler } = useStateContext();
 
@@ -35,8 +37,11 @@ const Index = () => {
           user,
         }));
 
-        if (user) setConf(true);
+        if (user) {
+          setConf(true);
+        }
       }, 1000);
+      router.push(`/confirm`);
     } catch (error) {
       setErr(error.message);
     }
@@ -167,12 +172,10 @@ const Index = () => {
       </Flex>
       <Link href="/">
         <Button
-          type="submit"
           height="36px"
           mt={4}
           mb={2}
           bg="orange.300"
-          isLoading={loading}
           _hover={{ bg: "orange.100", color: "black" }}
         >
           Go Back to Client
