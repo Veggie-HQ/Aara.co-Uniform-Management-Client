@@ -89,7 +89,7 @@ const Index = ({ isOpen, onClose, item }) => {
                   <Text fontWeight={800}>{price}</Text>
                 </Flex>
 
-                {title === "T Shirts" && (
+                {/* {title === "T Shirts" && (
                   <>
                     <Text mt={4} fontWeight={600}>
                       Select Color
@@ -105,7 +105,7 @@ const Index = ({ isOpen, onClose, item }) => {
                       <option value={color[1]}>{color[1]}</option>
                     </Select>
                   </>
-                )}
+                )} */}
 
                 {/* <Text mt={4} fontWeight={600}>
                 Select Gender

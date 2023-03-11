@@ -5,6 +5,9 @@ import { Flex, Text, Button, useDisclosure, Input } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "@/firebase/clientApp";
 import { useState } from "react";
+import { MdCurrencyRupee } from "react-icons/md";
+
+import OrderCard from "./OrderCard";
 
 export default function Index() {
   const { setShowPendingOrders } = useStateContext();
@@ -48,8 +51,6 @@ export default function Index() {
     setLoading(false);
   };
 
-  console.log("ORDERS:", ORDERS);
-
   return (
     <POWrapper
       initial={{ opacity: 0 }}
@@ -82,6 +83,7 @@ export default function Index() {
             isLoading={loading}
             size="sm"
             mt={2}
+            mb={2}
             bg="orange.300"
             _hover={{ bg: "orange.200" }}
           >
@@ -90,6 +92,14 @@ export default function Index() {
           <Text mt={1} fontWeight={800} fontSize="10pt" color="red.500">
             {error}
           </Text>
+
+          {ORDERS != ""
+            ? ORDERS.orders.map((item, index) => (
+                <>
+                  <OrderCard order={item} key={index} />
+                </>
+              ))
+            : ""}
         </Flex>
       </POStyle>
     </POWrapper>
