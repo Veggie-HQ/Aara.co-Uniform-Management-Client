@@ -10,7 +10,7 @@ export const LKGUKGData = [
   },
   {
     slug: "LKGTshirtyellow",
-    title: "T Shirts Yellow",
+    title: "T Shirts - Yellow",
     price: 320,
     imageURL: "/assets/tshirtyellow.jpeg",
     gender: ["boy", "girl", "other"],

@@ -13,7 +13,6 @@ const OrderCard = ({ order }) => {
       align="flex-start"
       bg="orange.200"
       p={2}
-      //   onClick={() => console.log("ORDER CLICKED:", order)}
     >
       <Flex direction="column" width="100%">
         <Flex width="100%" justify="space-between" align="center">
@@ -66,7 +65,7 @@ const OrderCard = ({ order }) => {
         ))}
       </Flex>
 
-      <Flex mt={5} align="center">
+      <Flex align="center" margin="20px auto 0px auto">
         <Text fontWeight={600} mr={1}>
           Total:
         </Text>
@@ -75,7 +74,13 @@ const OrderCard = ({ order }) => {
           {order.total}
         </Text>
       </Flex>
-      <Button bg="white" variant="sm">
+      <Button
+        margin="0px auto"
+        bg="white"
+        variant="sm"
+        mt={3}
+        onClick={() => console.log("ORDER CLICKED:", order)}
+      >
         Select Order
       </Button>
     </Flex>
