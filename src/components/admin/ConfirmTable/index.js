@@ -1,24 +1,10 @@
 import { useStateContext } from "@/lib/context";
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
+import { jsPDF } from "jspdf";
 import { useState } from "react";
-import { MdCurrencyRupee } from "react-icons/md";
 import InWords from "./utils/InWords";
 import InvoiceDate from "./utils/InvoiceDate";
-import { jsPDF } from "jspdf";
+import { MdCurrencyRupee } from "react-icons/md";
 
 const Index = () => {
   const [error, setError] = useState("");
@@ -124,264 +110,218 @@ const Index = () => {
 
   return (
     <>
-      {/* <Flex width="100%" justify="center" align="center"></Flex> */}
       {Object.keys(orderToConfirm).length > 0 ? (
-        <Flex
-          p={3}
-          id="contents"
-          width="80%"
-          margin="30px auto 0px auto"
-          // bg="rgb(152 151 151 / 25%)"
-          bg="white"
-          // borderRadius="7pt"
-          // boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-          // backdropFilter="blur(5px)"
-          // border="1px solid rgba(255, 255, 255, 0.3)"
-          direction="column"
-        >
-          <Box
-            width="100%"
-            className="useless invoiceheader"
-            id="invoiceheader"
-          >
-            <Text
-              align="center"
-              fontWeight={800}
-              border="1px solid black"
-              width="10%"
-              margin="0px auto"
-            >
-              TAX INVOICE
-            </Text>
-            <img src="/assets/header.png" alt="invoiceheader" />
-          </Box>
-          {Object.keys(orderToConfirm).length > 0 != "" ? (
-            <>
-              <Flex
-                // bg="gray.300"
-                mt={5}
-                border="1px solid black"
-                p={2}
-                borderRadius="7pt"
-                direction="row"
-                justify="space-between"
-              >
-                {Object.keys(orderToConfirm.order.studentDetails).length > 0 ? (
-                  <>
-                    <Stack spacing={0.25}>
-                      <Text fontWeight={800}>INVOICE #: {INV}</Text>
+        <>
+          <div>
+            {/* Display Order Details */}
+            <div id="contents">
+              <div className="useless invoiceheader" id="invoiceheader">
+                <p className="tax_invoice">TAX INVOICE</p>
+                <img src={"/assets/header.png"} alt="invoiceheader" />
+              </div>
 
-                      <Text fontWeight={800}>BILL TO</Text>
-                      <Flex>
-                        <Text fontSize={"12pt"}>Student Name: </Text>
-                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                          {orderToConfirm.order.studentDetails.name}
-                        </Text>
-                      </Flex>
-                      <Flex>
-                        <Text fontSize={"12pt"}>Student Gender: </Text>
-                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                          {orderToConfirm.order.studentDetails.gender}
-                        </Text>
-                      </Flex>
-                      <Flex>
-                        <Text fontSize={"12pt"}>Going to Class: </Text>
-                        <Text fontSize={"12pt"} fontWeight={600} ml={1}>
-                          {orderToConfirm.order.studentDetails.goingToClass}
-                        </Text>
-                      </Flex>
-                    </Stack>
-                  </>
-                ) : (
-                  ""
-                )}
+              <div className="billto">
+                <div className="left left_bill">
+                  <p class="date bold">Invoice No.: {INV}</p>
+                  <p className="bold">BILL TO</p>
 
-                <InvoiceDate />
-              </Flex>
+                  <p>{orderToConfirm.order.studentDetails.name}</p>
+                  <p>
+                    Going to Class:{" "}
+                    {orderToConfirm.order.studentDetails.goingToClass}
+                  </p>
 
-              <Flex mt={5}>
-                <TableContainer width="100%">
-                  <Table variant="simple">
-                    <Thead>
-                      <Tr>
-                        <Th color="black">Item</Th>
-                        <Th color="black">Size</Th>
-                        <Th color="black" isNumeric>
-                          Quantity
-                        </Th>
-                        <Th color="black" isNumeric>
-                          Rate
-                        </Th>
-                        <Th color="black" isNumeric>
-                          Amount
-                        </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {orderToConfirm.order.cartItems.map((item, index) => (
-                        <Tr key={index}>
-                          <Td>{item.title}</Td>
-                          <Td>{item.size}</Td>
-                          <Td isNumeric>{item.quantity}</Td>
-                          <Td isNumeric>{item.price}</Td>
-                          <Td isNumeric>{item.quantity * item.price}</Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Flex>
+                  <p>Bangalore</p>
+                </div>
+                <div className="right right_bill">
+                  <InvoiceDate />
+                </div>
+              </div>
 
-              <Flex width="100%" mt={3} justify="space-between">
-                <Flex width="75%"></Flex>
+              <table className="table order_details" id="contentsTable">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
 
-                <Flex width="25%" direction="column">
-                  <Flex align="center" justify="space-between">
-                    <Text fontSize={"10pt"} fontWeight={600} ml={3}>
-                      Taxable Amount:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
+                <tbody>
+                  {orderToConfirm.order.cartItems.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.title}</td>
+                      <td>{item.size}</td>
+                      <td isNumeric>{item.quantity}</td>
+                      <td isNumeric>{item.price}</td>
+                      <td isNumeric>{item.quantity * item.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="info">
+                <div className="left">
+                  <div className="terms">
+                    <p className="bold">Terms and Conditions</p>
+                    <p id="words">
+                      1. Goods once sold will not be taken back or exchanged{" "}
+                      <br />
+                      2. All disputes are subject to Bangalore jurisdiction only
+                    </p>
+                  </div>
+                </div>
+                <div className="right">
+                  <div className="taxes">
+                    <div className="left">
+                      <p>Taxable Amount</p>
+                      <p>CGST @2.5%</p>
+                      <p>SGST @2.5%</p>
+                      <p>CGST @6%</p>
+                      <p>SGST @6%</p>
+                      <p>Round Off</p>
+                    </div>
+
+                    <div className="right taxes_right">
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
+                        {/* <MdCurrencyRupee /> */}
                         {orderToConfirm.order.subtotal}
-                      </Text>
-                    </Flex>
-                  </Flex>
+                      </p>
 
-                  <Flex align="center" justify="space-between">
-                    <Text fontSize={"10pt"} fontWeight={600} ml={3}>
-                      CGST @2.5%:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
+                        {/* <MdCurrencyRupee /> */}
+
                         {orderToConfirm.order.gst5Total / 2}
-                      </Text>
-                    </Flex>
-                  </Flex>
-
-                  <Flex align="center" justify="space-between">
-                    <Text fontSize={"10pt"} fontWeight={600} ml={3}>
-                      SGST @2.5%:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
+                      </p>
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
                         {orderToConfirm.order.gst5Total / 2}
-                      </Text>
-                    </Flex>
-                  </Flex>
-
-                  <Flex align="center" justify="space-between">
-                    <Text fontSize={"10pt"} fontWeight={600} ml={3}>
-                      CGST @6%:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
+                      </p>
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
                         {orderToConfirm.order.gst12Total / 2}
-                      </Text>
-                    </Flex>
-                  </Flex>
-
-                  <Flex align="center" justify="space-between">
-                    <Text fontSize={"10pt"} fontWeight={600} ml={3}>
-                      SGST @6%:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
+                      </p>
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
                         {orderToConfirm.order.gst12Total / 2}
-                      </Text>
-                    </Flex>
-                  </Flex>
+                      </p>
+                      <p class="row">{orderToConfirm.order.roundOff}</p>
+                    </div>
+                  </div>
 
-                  <Flex
-                    align="center"
-                    justify="space-between"
-                    borderTop="1px solid black"
-                    borderBottom="1px solid black"
-                    p={1}
-                    mt={1}
-                  >
-                    <Text fontSize={"10pt"} fontWeight={800}>
-                      TOTAL AMOUNT:
-                    </Text>
-                    <Flex align="center">
-                      <MdCurrencyRupee />
-                      <Text fontSize={"10pt"} fontWeight={600}>
-                        {orderToConfirm.order.total}
-                      </Text>
-                    </Flex>
-                  </Flex>
+                  <p className="row total bold">
+                    TOTAL AMOUNT: <span className="spacer2" />
+                    <img
+                      src={"/assets/re.png"}
+                      className="resymbol"
+                      alt="rupee"
+                    />{" "}
+                    {orderToConfirm.order.total}
+                  </p>
+                  <div className="balances" id="remBalance">
+                    <div className="row form_received">
+                      <label className="form_item" htmlFor="received_amt">
+                        Received Amount
+                      </label>
+                      <input
+                        className="form_item text2"
+                        type="text"
+                        name="received_amt"
+                        id="received_amt"
+                        onChange={onChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="taxes">
+                    <div className="left">
+                      <p>Received Amount</p>
+                      <p>Balance</p>
+                    </div>
+                    <div className="right">
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />
+                        {recvAmt}
+                      </p>
+                      <p class="row">
+                        <img
+                          src={"/assets/re.png"}
+                          className="resymbol"
+                          alt="rupee"
+                        />{" "}
+                        {orderToConfirm.order.total - recvAmt}
+                      </p>
+                    </div>
+                  </div>
 
-                  <Flex
-                    mt={4}
-                    p={1}
-                    direction="column"
-                    align="center"
-                    id="remBalance"
-                  >
-                    <Text fontSize={"10pt"} fontWeight={600}>
-                      Enter Received Amount:
-                    </Text>
-                    <Input
-                      value={recvAmt}
-                      onChange={onChange}
-                      mt={1}
-                      border="1px solid black"
-                    />
-                    <Text fontSize={"10pt"} fontWeight={600} mt={1}>
-                      Balance: {orderToConfirm.order.total - recvAmt}
-                    </Text>
-                  </Flex>
-
-                  <Flex mt={4} p={1} direction="column" align="center">
-                    <Text fontSize={"10pt"} fontWeight={600}>
-                      Total Amount in Words:
-                    </Text>
+                  <div className="total_words">
+                    <p className="bold">Total Amount (in words)</p>
                     <InWords amount={orderToConfirm.order.total} />
-                  </Flex>
-                </Flex>
-              </Flex>
-              <Flex width="100%" align="center" justify="center" id="hidden">
-                <Button
-                  bg="orange.300"
-                  _hover={{ bg: "orange.100" }}
-                  onClick={() => PushOrderToDB(orderToConfirm.order)}
-                  isLoading={loading}
-                >
-                  Confirm Order
-                </Button>
-                <Button
-                  ml={2}
-                  bg="blue.300"
-                  _hover={{ bg: "blue.100" }}
-                  onClick={() => invoiceDownloader()}
-                  isDisabled={download}
-                >
-                  Download Invoice
-                </Button>
-                {error && (
-                  <Text
-                    align="center"
-                    color="red"
-                    fontSize="10pt"
-                    fontWeight={800}
-                    mt={2}
-                  >
-                    {error}
-                  </Text>
-                )}
-              </Flex>
-            </>
-          ) : (
-            ""
-          )}
-        </Flex>
+                  </div>
+
+                  <div className="sign">
+                    <img
+                      src={"/assets/sign.jpeg"}
+                      className="sign_img"
+                      alt="Authorised Sign"
+                    />
+                    <p className="bold">Authorised Signatory For</p>
+                    <p id="words">Aara.co</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Flex justify="center" align="center" width="100%" margin="90px auto">
+            <Button
+              bg="orange.300"
+              _hover={{ bg: "orange.100" }}
+              onClick={() => PushOrderToDB(orderToConfirm.order)}
+              isLoading={loading}
+              isDisabled={!download}
+            >
+              Confirm Order
+            </Button>
+            <Button
+              ml={2}
+              bg="blue.300"
+              _hover={{ bg: "blue.100" }}
+              onClick={() => invoiceDownloader()}
+              isDisabled={download}
+            >
+              Download Invoice
+            </Button>
+          </Flex>
+        </>
       ) : (
-        // <Text>DATA IS NULL</Text>
-        ""
+        <></>
       )}
     </>
   );
