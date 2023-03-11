@@ -5,7 +5,7 @@ import Head from "next/head";
 
 import Item from "@/components/client/Item";
 import Login from "@/components/client/Login";
-import { useStateContext } from "@/lib/client/context";
+import { useStateContext } from "@/lib/context";
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsArrowUpRight } from "react-icons/bs";

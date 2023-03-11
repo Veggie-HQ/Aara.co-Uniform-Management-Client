@@ -1,6 +1,6 @@
 import Confirmation from "@/components/client/Confirmation";
 import { firestore } from "@/firebase/clientApp";
-import { useStateContext } from "@/lib/client/context";
+import { useStateContext } from "@/lib/context";
 import {
   Card,
   CardInfo,

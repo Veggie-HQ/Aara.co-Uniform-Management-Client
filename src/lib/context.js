@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
+  // Client Context Begins HERE
   const [showCart, setShowCart] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [USER, setUser] = useState(null);
@@ -13,7 +14,6 @@ export const StateContext = ({ children }) => {
   const [gst5Total, setGst5Total] = useState(0.0);
   const [gst12Total, setGst12Total] = useState(0.0);
   const [DATA, setDATA] = useState([]);
-
   const [totalQuantities, setTotalQuantitites] = useState(0);
   const [STUDENT, selectedStudent] = useState("");
 
@@ -24,11 +24,9 @@ export const StateContext = ({ children }) => {
     }));
   };
 
-  //Increase product countity
   const increaseQty = () => {
     setQty((prevQty) => prevQty + 1);
   };
-  //Decrease product quantity
   const decreaseQty = () => {
     setQty((prevQty) => {
       if (prevQty - 1 < 1) return 1;
@@ -47,9 +45,7 @@ export const StateContext = ({ children }) => {
     setUser(user);
   };
 
-  //Add Product To Cart
   const onAdd = (product, quantity) => {
-    //Total Price
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
@@ -63,12 +59,9 @@ export const StateContext = ({ children }) => {
         (prevGST12Total) => prevGST12Total + 0.12 * quantity * product.price
       );
     }
-
-    //Increase total quantity
     setTotalQuantitites(
       (prevTotalQuantities) => prevTotalQuantities + quantity
     );
-    //Check if product is in the cart
     const exist = cartItems.find((item) => item.slug === product.slug);
     if (exist) {
       setCartItems(
@@ -87,35 +80,23 @@ export const StateContext = ({ children }) => {
     const exist = students.find((item) => item.name === student.name);
 
     if (exist) {
-      // setStudents(
-      //   students.map((item) =>
-      //     item.name === student.name ? { ...exist } : item
-      //   )
-      // );
       return;
     } else {
-      // setStudents([...students, { ...student }]);
       setStudents((prev) => {
         return [...prev, { ...student }];
       });
     }
-    // const existingStudent = localStorage.getItem("Student");
-    // console.log("in onAddStudent", students);
   };
 
-  //Remove product
   const onRemove = (product) => {
-    //Set Total Price
     setTotalPrice((prevTotalPrice) => prevTotalPrice - product.price);
     if (product.price < 1000) {
       setGst5Total((prevGST5Total) => prevGST5Total - 0.05 * product.price);
     } else {
       setGst12Total((prevGST12Total) => prevGST12Total - 0.12 * product.price);
     }
-    //Remove from total quantities
     setTotalQuantitites((prevTotalQuantities) => prevTotalQuantities - 1);
 
-    //Check if product exists
     const exist = cartItems.find((item) => item.slug === product.slug);
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((item) => item.slug !== product.slug));
@@ -130,9 +111,17 @@ export const StateContext = ({ children }) => {
     }
   };
 
+  // Admin Context Begins HERE
+  const [ADMIN, setAdmin] = useState(null);
+
+  const adminLoginHandler = (adminDetails) => {
+    setAdmin(adminDetails);
+  };
+
   return (
     <Context.Provider
       value={{
+        // CLIENT CONTEXT VARS
         STUDENT,
         studentSelector,
         USER,
@@ -161,6 +150,9 @@ export const StateContext = ({ children }) => {
         setGst5Total,
         setGst12Total,
         setTotalPrice,
+        // ADMIN CONTEXT VARS
+        ADMIN,
+        adminLoginHandler,
       }}
     >
       {children}

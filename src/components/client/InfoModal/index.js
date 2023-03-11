@@ -1,4 +1,4 @@
-import { useStateContext } from "@/lib/client/context";
+import { useStateContext } from "@/lib/context";
 import { useState } from "react";
 
 import {

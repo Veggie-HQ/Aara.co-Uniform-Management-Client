@@ -1,6 +1,6 @@
 import { UserStyle, UserWrapper } from "@/styles/UserStyles";
 import { auth } from "@/firebase/clientApp";
-import { useStateContext } from "@/lib/client/context";
+import { useStateContext } from "@/lib/context";
 import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
 import InfoContainer from "./InfoContainer";
 import OrderContainer from "./OrderContainer";

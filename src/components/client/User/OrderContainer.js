@@ -1,5 +1,5 @@
 import { firestore } from "@/firebase/clientApp";
-import { useStateContext } from "@/lib/client/context";
+import { useStateContext } from "@/lib/context";
 import { Button, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
