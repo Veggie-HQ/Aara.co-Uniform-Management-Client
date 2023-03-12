@@ -4,7 +4,9 @@ import { jsPDF } from "jspdf";
 import { useState } from "react";
 import InWords from "./utils/InWords";
 import InvoiceDate from "./utils/InvoiceDate";
-import { MdCurrencyRupee } from "react-icons/md";
+import { firestore } from "@/firebase/clientApp";
+import { doc, runTransaction } from "firebase/firestore";
+import Link from "next/link";
 
 const Index = () => {
   const [error, setError] = useState("");
@@ -12,7 +14,7 @@ const Index = () => {
   const [INV, SetINV] = useState(0);
   const [download, allowDownload] = useState(true);
 
-  const { orderToConfirm } = useStateContext();
+  const { orderToConfirm, STUDENT } = useStateContext();
   // console.log(orderToConfirm);
   const [recvAmt, setRecvAmt] = useState(0);
 
@@ -26,6 +28,7 @@ const Index = () => {
 
   async function PushOrderToDB(order_details) {
     setLoading(true);
+
     try {
       const res = await fetch(process.env.NEXT_PUBLIC_REALTIME_1, {
         method: "POST",
@@ -73,6 +76,24 @@ const Index = () => {
       const data2 = await res2.json();
       // console.log("pushed2");
       SetINV(IN);
+
+      const commDocRef = doc(
+        firestore,
+        "confirmedOrders",
+        `#${IN}-${orderToConfirm.order.studentDetails.name}`
+      );
+      await runTransaction(firestore, async (transaction) => {
+        const commDoc = await transaction.get(commDocRef);
+        if (commDoc.exists()) {
+          throw new Error(`This Record Exists`);
+        }
+
+        transaction.set(commDocRef, {
+          ...order_details,
+          invoice_number: IN,
+          balance: order_details.total - recvAmt,
+        });
+      });
 
       setTimeout(() => {
         allowDownload(false);
@@ -320,6 +341,18 @@ const Index = () => {
               Download Invoice
             </Button>
           </Flex>
+          {/* <Flex
+            justify="center"
+            align="center"
+            width="100%"
+            margin="40px auto 90px auto"
+          >
+            <Link href="/admin">
+              <Button bg="purple.300" _hover={{ bg: "purple.100" }}>
+                Go Back Home
+              </Button>
+            </Link>
+          </Flex> */}
         </>
       ) : (
         <></>
