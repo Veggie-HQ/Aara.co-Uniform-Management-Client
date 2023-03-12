@@ -60,6 +60,7 @@ const Index = () => {
       let modDetails = {
         ...order_details,
         invoice_number: IN,
+        balance: order_details.total - recvAmt,
       };
 
       const res2 = await fetch(process.env.NEXT_PUBLIC_REALTIME_2, {
