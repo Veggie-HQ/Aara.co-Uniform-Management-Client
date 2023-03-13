@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Index = ({ isOpen, onClose, onConfirm }) => {
+const Index = ({ isOpen, onClose, onConfirm, loading }) => {
   const cancelRef = React.useRef();
 
   return (
@@ -41,7 +41,12 @@ const Index = ({ isOpen, onClose, onConfirm }) => {
           <Button ref={cancelRef} onClick={onClose}>
             No
           </Button>
-          <Button colorScheme="blue" ml={3} onClick={onConfirm}>
+          <Button
+            isLoading={loading}
+            colorScheme="blue"
+            ml={3}
+            onClick={onConfirm}
+          >
             Yes
           </Button>
         </AlertDialogFooter>

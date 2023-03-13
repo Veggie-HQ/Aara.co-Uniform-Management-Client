@@ -3,13 +3,11 @@ import { S1To4Data } from "@/data/S1To4";
 import { S5, S6To12Data } from "@/data/S5To12";
 import Head from "next/head";
 
-import Item from "@/components/client/Item";
-import Login from "@/components/client/Login";
+import Item from "@/components/Item";
+import Login from "@/components/Login";
 import { useStateContext } from "@/lib/context";
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { BsArrowUpRight } from "react-icons/bs";
-import Link from "next/link";
 
 export default function Home() {
   const { showCart, showUser, students, USER, studentSelector } =
@@ -41,14 +39,6 @@ export default function Home() {
         {!USER ? (
           <Flex align="center" justify="center" direction="column">
             <Login />
-            <Link href="/admin">
-              <Button mt="20%" bg="purple.200">
-                <Flex align="center">
-                  <Text>Admin Login</Text>
-                  <Icon as={BsArrowUpRight} ml="2" />
-                </Flex>
-              </Button>
-            </Link>
           </Flex>
         ) : (
           <>

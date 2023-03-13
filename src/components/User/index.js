@@ -4,7 +4,7 @@ import { useStateContext } from "@/lib/context";
 import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
 import InfoContainer from "./InfoContainer";
 import OrderContainer from "./OrderContainer";
-import InfoModal from "@/components/client/InfoModal";
+import InfoModal from "@/components/InfoModal";
 
 import { signOut } from "firebase/auth";
 

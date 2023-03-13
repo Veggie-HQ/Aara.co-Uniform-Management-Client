@@ -1,4 +1,4 @@
-import Confirmation from "@/components/client/Confirmation";
+import Confirmation from "@/components/Confirmation";
 import { firestore } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 import {
@@ -217,6 +217,7 @@ export default function Cart() {
               isOpen={isOpen}
               onClose={onClose}
               onConfirm={submitOrder}
+              loading={loading}
             />
 
             <Button

@@ -111,23 +111,23 @@ export const StateContext = ({ children }) => {
     }
   };
 
-  // Admin Context Begins HERE
-  const [ADMIN, setAdmin] = useState(null);
-  const [showConfirmedOrders, setShowConfirmedOrders] = useState(false);
-  const [showPendingOrders, setShowPendingOrders] = useState(false);
-  const [totalConfirmedOrders, setTotalConfirmedOrders] = useState(0);
-  const [orderToConfirm, setOrderToConfirm] = useState({});
+  // // Admin Context Begins HERE
+  // const [ADMIN, setAdmin] = useState(null);
+  // const [showConfirmedOrders, setShowConfirmedOrders] = useState(false);
+  // const [showPendingOrders, setShowPendingOrders] = useState(false);
+  // const [totalConfirmedOrders, setTotalConfirmedOrders] = useState(0);
+  // const [orderToConfirm, setOrderToConfirm] = useState({});
 
-  const adminLoginHandler = (adminDetails) => {
-    setAdmin(adminDetails);
-  };
+  // const adminLoginHandler = (adminDetails) => {
+  //   setAdmin(adminDetails);
+  // };
 
-  const confirmationHandler = (order) => {
-    setOrderToConfirm((prev) => ({
-      ...prev,
-      order,
-    }));
-  };
+  // const confirmationHandler = (order) => {
+  //   setOrderToConfirm((prev) => ({
+  //     ...prev,
+  //     order,
+  //   }));
+  // };
 
   return (
     <Context.Provider
@@ -161,17 +161,6 @@ export const StateContext = ({ children }) => {
         setGst5Total,
         setGst12Total,
         setTotalPrice,
-        // ADMIN CONTEXT VARS
-        ADMIN,
-        adminLoginHandler,
-        showConfirmedOrders,
-        setShowConfirmedOrders,
-        showPendingOrders,
-        setShowPendingOrders,
-        totalConfirmedOrders,
-        setTotalConfirmedOrders,
-        orderToConfirm,
-        confirmationHandler,
       }}
     >
       {children}

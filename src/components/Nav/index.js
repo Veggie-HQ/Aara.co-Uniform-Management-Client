@@ -3,14 +3,11 @@ import { useStateContext } from "@/lib/context";
 import { Box, Flex, Image } from "@chakra-ui/react";
 import Link from "next/link";
 
-import AdminView from "./AdminView";
 import ClientView from "./ClientView";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/firebase/clientApp";
 
 export default function Nav() {
-  const { USER, ADMIN } = useStateContext();
-  const [user] = useAuthState(auth);
+  const { USER } = useStateContext();
+
   return (
     <Flex
       height="80px"
@@ -29,7 +26,6 @@ export default function Nav() {
       </Box>
 
       {USER && <ClientView />}
-      {ADMIN && <AdminView />}
     </Flex>
   );
 }

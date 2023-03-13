@@ -2,8 +2,8 @@ import Link from "next/link";
 import { FiShoppingBag, FiUser } from "react-icons/fi";
 import { useStateContext } from "@/lib/context";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import Cart from "../client/Cart";
-import User from "../client/User";
+import Cart from "../Cart";
+import User from "../User";
 const { AnimatePresence, motion } = require("framer-motion");
 
 const ClientView = () => {
