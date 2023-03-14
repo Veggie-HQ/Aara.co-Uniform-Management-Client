@@ -15,10 +15,11 @@ import {
   Select,
   Box,
 } from "@chakra-ui/react";
+
 import EditRow from "./EditRow";
 
 const EditModal = ({ isOpen, onClose, item }) => {
-  console.log("IN EDITMODAL", item);
+  // console.log("IN EDITMODAL", item);
 
   const onUpdate = async (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ const EditModal = ({ isOpen, onClose, item }) => {
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="sm">
+      <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -52,7 +53,11 @@ const EditModal = ({ isOpen, onClose, item }) => {
                 </Flex>
                 <Flex
                   width="100%"
-                  border="1px solid blue"
+                  mt={1}
+                  p={2}
+                  border="0.5px solid"
+                  borderRadius="7pt"
+                  borderColor="gray.400"
                   align="center"
                   justify="space-evenly"
                   direction="column"
@@ -68,7 +73,14 @@ const EditModal = ({ isOpen, onClose, item }) => {
               <Button onClick={onClose} mr={3}>
                 Close
               </Button>
-              <Button type="submit" colorScheme="blue" onClick={onClose}>
+              <Button
+                // type="submit"
+                isDisabled="true"
+                colorScheme="blue"
+                onClick={() => {
+                  //   onClose();
+                }}
+              >
                 Update and Save
               </Button>
             </ModalFooter>

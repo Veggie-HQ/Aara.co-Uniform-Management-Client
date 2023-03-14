@@ -3,11 +3,11 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  // Client Context Begins HERE
   const [showCart, setShowCart] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [USER, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [editItems, setEditItems] = useState([]);
   const [students, setStudents] = useState([]);
   const [qty, setQty] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -111,28 +111,9 @@ export const StateContext = ({ children }) => {
     }
   };
 
-  // // Admin Context Begins HERE
-  // const [ADMIN, setAdmin] = useState(null);
-  // const [showConfirmedOrders, setShowConfirmedOrders] = useState(false);
-  // const [showPendingOrders, setShowPendingOrders] = useState(false);
-  // const [totalConfirmedOrders, setTotalConfirmedOrders] = useState(0);
-  // const [orderToConfirm, setOrderToConfirm] = useState({});
-
-  // const adminLoginHandler = (adminDetails) => {
-  //   setAdmin(adminDetails);
-  // };
-
-  // const confirmationHandler = (order) => {
-  //   setOrderToConfirm((prev) => ({
-  //     ...prev,
-  //     order,
-  //   }));
-  // };
-
   return (
     <Context.Provider
       value={{
-        // CLIENT CONTEXT VARS
         STUDENT,
         studentSelector,
         USER,
@@ -161,6 +142,8 @@ export const StateContext = ({ children }) => {
         setGst5Total,
         setGst12Total,
         setTotalPrice,
+        editItems,
+        setEditItems,
       }}
     >
       {children}
