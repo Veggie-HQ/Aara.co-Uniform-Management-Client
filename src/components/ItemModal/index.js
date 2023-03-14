@@ -65,7 +65,7 @@ const Index = ({ isOpen, onClose, item }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} size="xs">
+      <Modal isOpen={isOpen} onClose={onClose} size="sm">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -88,39 +88,6 @@ const Index = ({ isOpen, onClose, item }) => {
                   <MdCurrencyRupee />
                   <Text fontWeight={800}>{price}</Text>
                 </Flex>
-
-                {/* {title === "T Shirts" && (
-                  <>
-                    <Text mt={4} fontWeight={600}>
-                      Select Color
-                    </Text>
-                    <Select
-                      variant="filled"
-                      placeholder="Select Color"
-                      required
-                      name="color"
-                      onChange={onChange}
-                    >
-                      <option value={color[0]}>{color[0]}</option>
-                      <option value={color[1]}>{color[1]}</option>
-                    </Select>
-                  </>
-                )} */}
-
-                {/* <Text mt={4} fontWeight={600}>
-                Select Gender
-              </Text>
-              <Select
-                variant="filled"
-                placeholder="Select Color"
-                required
-                name="gender"
-                onChange={onChange}
-              >
-                <option value={gender[0]}>{gender[0]}</option>
-                <option value={gender[1]}>{gender[1]}</option>
-                {gender[2] && <option value={gender[2]}>{gender[2]}</option>}
-              </Select> */}
 
                 <Text mt={4} fontWeight={600}>
                   Select Size
@@ -148,8 +115,8 @@ const Index = ({ isOpen, onClose, item }) => {
                       <AiFillMinusCircle />
                     </Button>
                     <Text mr={2}>{qty}</Text>
-                    <Button>
-                      <AiFillPlusCircle onClick={increaseQty} />
+                    <Button onClick={increaseQty}>
+                      <AiFillPlusCircle />
                     </Button>
                   </Flex>
                 </Quantity>

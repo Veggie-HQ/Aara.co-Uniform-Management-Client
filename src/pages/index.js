@@ -10,7 +10,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
-  const { showCart, showUser, students, USER, studentSelector } =
+  const { showCart, showUser, students, USER, studentSelector, cartItems } =
     useStateContext();
   const [student, setStudent] = useState(students[0]);
 

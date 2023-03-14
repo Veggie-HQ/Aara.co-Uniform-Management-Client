@@ -1,8 +1,10 @@
 import { Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { MdCurrencyRupee } from "react-icons/md";
 import ItemModal from "../ItemModal";
+import { useStateContext } from "@/lib/context";
 
 const Index = ({ item }) => {
+  const { cartItems } = useStateContext();
   const { title, price, imageURL } = item;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -35,7 +37,25 @@ const Index = ({ item }) => {
             {price}
           </Text>
         </Flex>
-        <Text
+        {cartItems.map((cartItem, index) => (
+          <>
+            <Text
+              _hover={{ cursor: "pointer" }}
+              mt={2}
+              align="center"
+              fontSize="9pt"
+              fontStyle="italic"
+              key={index}
+            >
+              {item.slug === cartItem.slug &&
+                `${cartItem.quantity} ${cartItem.title} of Size ${
+                  cartItem.size
+                } ${cartItem.quantity > 1 ? "are" : "is"} in the Cart`}
+            </Text>
+          </>
+        ))}
+
+        {/* <Text
           _hover={{ cursor: "pointer" }}
           mt={2}
           align="center"
@@ -43,7 +63,7 @@ const Index = ({ item }) => {
           fontStyle="italic"
         >
           Tap to Add to Cart
-        </Text>
+        </Text> */}
       </Flex>
     </Flex>
   );
