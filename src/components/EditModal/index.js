@@ -1,25 +1,22 @@
-import React, { useState } from "react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Button,
   Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  Image,
-  Input,
-  Select,
-  Box,
 } from "@chakra-ui/react";
 
 import EditRow from "./EditRow";
 
 const EditModal = ({ isOpen, onClose, item }) => {
-  // console.log("IN EDITMODAL", item);
+  const onEdit = (data) => {
+    console.log("EDIT DATA:", data);
+  };
 
   const onUpdate = async (e) => {
     e.preventDefault();
@@ -63,7 +60,12 @@ const EditModal = ({ isOpen, onClose, item }) => {
                   direction="column"
                 >
                   {item.cartItems.map((cartItem, index) => (
-                    <EditRow item={cartItem} key={index} />
+                    <EditRow
+                      item={cartItem}
+                      key={index}
+                      data={item}
+                      onEdit={onEdit}
+                    />
                   ))}
                 </Flex>
               </Flex>
@@ -75,10 +77,10 @@ const EditModal = ({ isOpen, onClose, item }) => {
               </Button>
               <Button
                 // type="submit"
-                isDisabled="true"
+                // isDisabled="true"
                 colorScheme="blue"
                 onClick={() => {
-                  //   onClose();
+                  // onClose();
                 }}
               >
                 Update and Save

@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
-import { Flex, Text, Input, Box, Button } from "@chakra-ui/react";
-import { useStateContext } from "@/lib/context";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
-const EditRow = ({ item }) => {
+const EditRow = ({ item, data, onEdit }) => {
   const [qty, setQty] = useState(item.quantity);
   const [size, setSize] = useState(item.size);
 
+  const [changedData, setChangedData] = useState(data);
+
   const onChangeSize = (e) => {
     setSize(e.target.value);
+    onEdit(changedData);
     console.log(`SIZE FOR ${item.title} CHANGED FROM ${item.size} to ${size}`);
   };
+
   const eq =
     item.slug === "S14TieKnot" ||
     item.slug === "S14Belt" ||
@@ -49,21 +51,19 @@ const EditRow = ({ item }) => {
         <Box width="32%">
           <select value={size} onChange={onChangeSize}>
             <option value="-1">Select Size</option>
-            <option value="42" selected={item.size === "42" ? "selected" : ""}>
-              42
-            </option>
-            <option value="34" selected={item.size === "34" ? "selected" : ""}>
-              34
-            </option>
-            <option value="3" selected={item.size === "3" ? "selected" : ""}>
-              3
-            </option>
-            <option value="30" selected={item.size === "30" ? "selected" : ""}>
-              30
-            </option>
-            <option value="28" selected={item.size === "28" ? "selected" : ""}>
-              28
-            </option>
+            {data.productInfo.map((productData, index) => (
+              <>
+                {item.slug === productData.slug ? (
+                  <>
+                    {productData.size.map((itemSize, sizeIndex) => (
+                      <option key={sizeIndex}>{itemSize}</option>
+                    ))}
+                  </>
+                ) : (
+                  ""
+                )}
+              </>
+            ))}
           </select>
         </Box>
       )}
