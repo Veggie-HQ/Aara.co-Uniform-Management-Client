@@ -10,7 +10,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
-  const { showCart, showUser, students, USER, studentSelector, setData } =
+  const { showCart, showUser, students, USER, studentSelector } =
     useStateContext();
   const [student, setStudent] = useState(students[0]);
 
@@ -98,7 +98,6 @@ export default function Home() {
                     {Number(student.goingToClass) >= 1 &&
                     Number(student.goingToClass) <= 4 ? (
                       <>
-                        {/* {setData(S1To4Data)} */}
                         {S1To4Data.map((item, index) => (
                           <>
                             <Item item={item} key={index} />
@@ -110,7 +109,6 @@ export default function Home() {
                     )}
                     {Number(student.goingToClass) === 5 ? (
                       <>
-                        {/* {setData(S5)} */}
                         {S5.map((item, index) => (
                           <>
                             <Item item={item} key={index} />
@@ -123,7 +121,6 @@ export default function Home() {
                     {Number(student.goingToClass) > 5 &&
                     Number(student.goingToClass) <= 12 ? (
                       <>
-                        {/* {setData(S6To12Data)} */}
                         {S6To12Data.map((item, index) => (
                           <>
                             <Item item={item} key={index} />
@@ -136,7 +133,6 @@ export default function Home() {
                     {student.goingToClass.includes("LKG") ||
                     student.goingToClass.includes("UKG") ? (
                       <>
-                        {/* {setData(LKGUKGData)} */}
                         {LKGUKGData.map((item, index) => (
                           <>
                             <Item item={item} key={index} />

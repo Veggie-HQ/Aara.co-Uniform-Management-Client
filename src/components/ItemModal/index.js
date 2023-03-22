@@ -20,8 +20,7 @@ import toast from "react-hot-toast";
 
 const Index = ({ isOpen, onClose, item }) => {
   const { slug, title, price, imageURL, color, gender, size } = item;
-  const { increaseQty, decreaseQty, qty, onAdd, setQty, cartItems } =
-    useStateContext();
+  const { increaseQty, decreaseQty, qty, onAdd, setQty } = useStateContext();
 
   const [product, setProduct] = useState({
     slug: slug,
@@ -42,8 +41,6 @@ const Index = ({ isOpen, onClose, item }) => {
       [name]: value,
     }));
   };
-
-  console.log("CART ITEMS:", cartItems);
 
   const resetQuantity = () => {
     setQty(1);
