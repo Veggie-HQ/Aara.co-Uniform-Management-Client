@@ -53,7 +53,16 @@ const Index = ({ isOpen, onClose, item }) => {
   }, []);
 
   const notify = () => {
-    toast.success(`${qty} ${title} added to your cart.`, {
+    // toast.success(`${qty} ${title} added to your cart.`, {
+    //   duration: 1500,
+    // });
+    toast(`${qty} ${title} added to your cart.`, {
+      icon: "✅",
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
       duration: 1500,
     });
   };
