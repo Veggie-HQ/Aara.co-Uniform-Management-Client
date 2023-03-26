@@ -9,7 +9,7 @@ const InfoContainer = () => {
     <Flex borderRadius="7pt" width="95%" align="center" direction="column">
       {students.length < 1 ? (
         <Text align="center" fontWeight={800}>
-          Currently No Student Information Exists
+          No Student Information Entered
         </Text>
       ) : (
         <>

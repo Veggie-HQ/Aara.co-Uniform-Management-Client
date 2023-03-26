@@ -1,18 +1,17 @@
-import { LKGUKGData } from "@/data/LKGUKG";
-import { S1To4Data } from "@/data/S1To4";
-import { S5, S6To12Data } from "@/data/S5To12";
-import Head from "next/head";
-
 import Item from "@/components/Item";
 import Login from "@/components/Login";
+import { firestore } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { showCart, showUser, students, USER, studentSelector } =
     useStateContext();
   const [student, setStudent] = useState(students[0]);
+  const [items, setItems] = useState([]);
 
   const onChange = (e) => {
     if (e.target.value >= 0) {
@@ -25,6 +24,34 @@ export default function Home() {
       studentSelector(students[e.target.value]);
     }
   };
+
+  const itemFetcher = async () => {
+    // e.preventDefault();
+    if (student) {
+      try {
+        const itemQuery = query(
+          collection(firestore, "items"),
+          where("grades", "array-contains", student.goingToClass)
+        );
+        const itemDocs = await getDocs(itemQuery);
+        const itemData = itemDocs.docs.flatMap((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setItems((prev) => ({
+          ...prev,
+          itemData,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    itemFetcher();
+  }, [student]);
 
   return (
     <>
@@ -95,7 +122,25 @@ export default function Home() {
                   ""
                 ) : (
                   <>
-                    {Number(student.goingToClass) >= 1 &&
+                    {Object.keys(items).length > 0 ? (
+                      <>
+                        {items.itemData.map((item, index) => (
+                          <Item item={item} key={index} />
+                        ))}
+                      </>
+                    ) : (
+                      <Flex width="100%" align="center" justify="center">
+                        <Spinner
+                          thickness="4px"
+                          speed="0.65s"
+                          emptyColor="orange.200"
+                          color="orange.500"
+                          size="xl"
+                        />
+                      </Flex>
+                    )}
+
+                    {/* {Number(student.goingToClass) >= 1 &&
                     Number(student.goingToClass) <= 4 ? (
                       <>
                         {S1To4Data.map((item, index) => (
@@ -141,7 +186,7 @@ export default function Home() {
                       </>
                     ) : (
                       ""
-                    )}
+                    )} */}
                   </>
                 )}
               </Box>
