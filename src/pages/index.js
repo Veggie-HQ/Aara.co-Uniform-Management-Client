@@ -99,8 +99,8 @@ export default function Home() {
               ) : (
                 <>
                   <Text fontWeight={600} align="center" mt={2}>
-                    Visit the Profile Tab to Enter Student Information and begin
-                    the Ordering Process
+                    Tap the Profile Button to Enter Student Information and
+                    begin the Ordering Process
                   </Text>
                 </>
               )}
@@ -117,6 +117,19 @@ export default function Home() {
                 >
                   The items displayed in the pictures are solely for
                   representational purposes
+                </Text>
+
+                <Text
+                  align="center"
+                  mb={3}
+                  mt={3}
+                  fontStyle="italic"
+                  fontWeight={600}
+                  fontSize={"15pt"}
+                  color="orange.500"
+                >
+                  Once all the items have been added, tap the Cart icon to
+                  review and submit the order
                 </Text>
                 {student.length === 0 ? (
                   ""

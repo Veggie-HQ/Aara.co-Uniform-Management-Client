@@ -40,7 +40,7 @@ const Index = ({ isOpen, onClose }) => {
     goingToClass: "",
   });
 
-  const { onAddStudent } = useStateContext();
+  const { onAddStudent, setShowUser } = useStateContext();
 
   const onChange = (event) => {
     const {
@@ -56,6 +56,7 @@ const Index = ({ isOpen, onClose }) => {
     e.preventDefault();
     onClose();
     onAddStudent(studentInfo);
+    setShowUser(false);
   };
 
   return (
@@ -110,7 +111,7 @@ const Index = ({ isOpen, onClose }) => {
                 </Stack>
 
                 <Button type="submit" mt={3}>
-                  Add Student
+                  Confirm Student
                 </Button>
               </Flex>
             </form>

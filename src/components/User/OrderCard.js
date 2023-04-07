@@ -81,7 +81,7 @@ const OrderCard = ({ item }) => {
 
         <EditModal isOpen={isOpen} onClose={onClose} item={item} />
         <Flex width="100%" align="center" justify="center" mt={1}>
-          <Button
+          {/* <Button
             isDisabled="true"
             fontSize="10pt"
             onClick={() => {
@@ -90,7 +90,7 @@ const OrderCard = ({ item }) => {
           >
             Edit Order
             <Icon as={AiOutlineEdit} ml={1} />
-          </Button>
+          </Button> */}
         </Flex>
       </Flex>
     </>
