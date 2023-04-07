@@ -1,11 +1,18 @@
-import { Button, Flex, Input, Text, Box } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  Text,
+  InputGroup,
+  InputLeftAddon,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 
 const Index = () => {
-  const [number, setNumber] = useState("+91");
+  const [number, setNumber] = useState("");
   const [otp, setOTP] = useState("");
   const [expandForm, setExpandForm] = useState(false);
   const [err, setErr] = useState("");
@@ -68,11 +75,12 @@ const Index = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (number.length >= 12) {
+    if (number.length >= 10) {
+      const OTPNumber = "+91" + number;
       setExpandForm(true);
       generateRecaptcha();
       let appVerifier = window.recaptchaVerifier;
-      signInWithPhoneNumber(auth, number, appVerifier)
+      signInWithPhoneNumber(auth, OTPNumber, appVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
         })
@@ -95,14 +103,19 @@ const Index = () => {
       <form onSubmit={onSubmit}>
         <Flex align="center" justify="center" direction="column" mt={5} p={3}>
           <Text>Enter Phone Number</Text>
-          <Input
-            placeholder="Enter Number"
-            mt={2}
-            onChange={onChange}
-            name="number"
-            value={number}
-            required
-          />
+
+          <InputGroup mt={2}>
+            <InputLeftAddon>+91</InputLeftAddon>
+            {/* <Input type="tel" placeholder="phone number" /> */}
+            <Input
+              placeholder="Enter Number"
+              // mt={2}
+              onChange={onChange}
+              name="number"
+              value={number}
+              required
+            />
+          </InputGroup>
           {expandForm ? (
             <Flex direction="column" align="center" mt={3}>
               <Text>Enter OTP</Text>
