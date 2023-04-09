@@ -1,6 +1,6 @@
 import Item from "@/components/Item";
 import Login from "@/components/Login";
-import { firestore } from "@/firebase/clientApp";
+import { auth, firestore } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";

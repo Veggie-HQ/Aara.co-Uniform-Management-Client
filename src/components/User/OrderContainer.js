@@ -17,7 +17,7 @@ const Index = () => {
     if (error) setError("");
     try {
       const orderQuery = query(
-        collection(firestore, "clientOrders"),
+        collection(firestore, "confirmedOrders"),
         where("parentInfo", "==", USER.user.phoneNumber)
       );
       const orderDocs = await getDocs(orderQuery);

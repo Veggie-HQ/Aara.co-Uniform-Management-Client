@@ -66,6 +66,7 @@ export default function Cart() {
         }
 
         transaction.set(commDocRef, {
+          confirmed: false,
           cartItems: cartItems,
           studentDetails: STUDENT.student,
           parentInfo: USER.user.phoneNumber,
