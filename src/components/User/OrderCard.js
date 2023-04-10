@@ -9,7 +9,7 @@ import { jsPDF } from "jspdf";
 
 const OrderCard = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log(item);
+
   const invoiceDownloader = () => {
     let element = document.getElementById("contents");
 
