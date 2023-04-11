@@ -65,6 +65,7 @@ export default function Home() {
       <Flex mt="90px" direction="column">
         {!USER ? (
           <Flex align="center" justify="center" direction="column">
+            {/* <Login /> */}
             <Login />
           </Flex>
         ) : (
