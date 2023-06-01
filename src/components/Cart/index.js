@@ -66,6 +66,7 @@ export default function Cart() {
         }
 
         transaction.set(commDocRef, {
+          date: new Date(),
           confirmed: false,
           cartItems: cartItems,
           studentDetails: STUDENT.student,
