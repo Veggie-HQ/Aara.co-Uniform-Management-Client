@@ -15,6 +15,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { doc, writeBatch } from "firebase/firestore";
+import { auth, firestore } from "@/firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const goingToClass = [
   "LKG",
@@ -39,7 +42,9 @@ const Index = ({ isOpen, onClose }) => {
     gender: "",
     goingToClass: "",
   });
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [user] = useAuthState(auth);
   const { onAddStudent, setShowUser } = useStateContext();
 
   const onChange = (event) => {
@@ -52,8 +57,24 @@ const Index = ({ isOpen, onClose }) => {
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    if (error) setError("");
+    try {
+      const batch = writeBatch(firestore);
+
+      batch.set(
+        doc(firestore, `users/${user.email}/students`, studentInfo.name),
+        studentInfo
+      );
+
+      await batch.commit();
+    } catch (error) {
+      console.log("onSubmit Student Info Error", error);
+      setError(error.message);
+    }
+    setLoading(false);
     onClose();
     onAddStudent(studentInfo);
     setShowUser(false);
@@ -110,7 +131,7 @@ const Index = ({ isOpen, onClose }) => {
                   </Select>
                 </Stack>
 
-                <Button type="submit" mt={3}>
+                <Button isLoading={loading} type="submit" mt={3}>
                   Confirm Student
                 </Button>
               </Flex>

@@ -41,6 +41,7 @@ export default function Cart() {
     setGst5Total,
     setGst12Total,
     setTotalPrice,
+    phoneNumber,
   } = useStateContext();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ export default function Cart() {
       const commDocRef = doc(
         firestore,
         "clientOrders",
-        `${USER.user.phoneNumber}-${STUDENT.student.name}-${timeString}`
+        `${phoneNumber}-${STUDENT.student.name}-${timeString}`
       );
       await runTransaction(firestore, async (transaction) => {
         const commDoc = await transaction.get(commDocRef);
@@ -70,7 +71,7 @@ export default function Cart() {
           confirmed: false,
           cartItems: cartItems,
           studentDetails: STUDENT.student,
-          parentInfo: USER.user.phoneNumber,
+          parentInfo: phoneNumber,
           subtotal: totalPrice,
           gst5Total: gst5Total,
           gst12Total: gst12Total,

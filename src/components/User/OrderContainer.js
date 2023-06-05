@@ -7,7 +7,7 @@ import { BiRefresh } from "react-icons/bi";
 import OrderCard from "./OrderCard";
 
 const Index = () => {
-  const { USER } = useStateContext();
+  const { phoneNumber } = useStateContext();
   const [ORDERS, setOrders] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const Index = () => {
     try {
       const orderQuery = query(
         collection(firestore, "clientOrders"),
-        where("parentInfo", "==", USER.user.phoneNumber)
+        where("parentInfo", "==", phoneNumber)
       );
       const orderDocs = await getDocs(orderQuery);
       const orders = orderDocs.docs.flatMap((doc) => ({

@@ -1,18 +1,16 @@
-import { UserStyle, UserWrapper } from "@/styles/UserStyles";
+import InfoModal from "@/components/InfoModal";
 import { auth } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
-import { Flex, Text, Button, useDisclosure } from "@chakra-ui/react";
-import InfoContainer from "./InfoContainer";
-import OrderContainer from "./OrderContainer";
-import InfoModal from "@/components/InfoModal";
-
+import { UserStyle, UserWrapper } from "@/styles/UserStyles";
+import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import InfoContainer from "./InfoContainer";
+import OrderContainer from "./OrderContainer";
 
 export default function User() {
-  const { setShowUser } = useStateContext();
+  const { setShowUser, phoneNumber, PhoneNumberHandler } = useStateContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [user] = useAuthState(auth);
 
   const signOutHandler = () => {
@@ -25,6 +23,10 @@ export default function User() {
         console.log(err);
       });
   };
+
+  PhoneNumberHandler(
+    user.email.split("@")[0].substring(0, 3) + user.email.split("@")[0].slice(3)
+  );
 
   return (
     <UserWrapper
@@ -64,13 +66,9 @@ export default function User() {
             <Text fontWeight={700} color="black" fontSize="12pt" mt={3}>
               Registered Mobile Number
             </Text>
-            {user.phoneNumber ? (
-              <Text fontWeight={800}>{user.phoneNumber}</Text>
-            ) : (
-              <Text mt={3} color="red" fontWeight={800}>
-                No Phone Number Entered
-              </Text>
-            )}
+
+            <Text fontWeight={800}>{phoneNumber}</Text>
+
             <hr />
           </Flex>
 

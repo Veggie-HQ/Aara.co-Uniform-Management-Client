@@ -1,19 +1,47 @@
+import useStudentInfo from "@/hooks/useStudentInfo";
 import { Flex, Text } from "@chakra-ui/react";
-import React from "react";
-import { useStateContext } from "@/lib/context";
 
 const InfoContainer = () => {
-  const { students } = useStateContext();
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
+  // const [user] = useAuthState(auth);
+  // const [savedStudents, setSavedStudents] = useState([]);
+
+  // useEffect(() => {
+  //   getStudents();
+  // });
+
+  // const getStudents = async () => {
+  //   setLoading(true);
+  //   if (error) setError("");
+  //   try {
+  //     const studentDocs = await getDocs(
+  //       collection(firestore, `users/${user.email}/students`)
+  //     );
+
+  //     const students = studentDocs.docs.map((doc) => ({
+  //       ...doc.data(),
+  //     }));
+
+  //     setSavedStudents(students);
+  //   } catch (error) {
+  //     console.log("getStudents error", error);
+  //     setError(error.message);
+  //   }
+  //   setLoading(false);
+  // };
+
+  const { savedStudents } = useStudentInfo();
 
   return (
     <Flex borderRadius="7pt" width="95%" align="center" direction="column">
-      {students.length < 1 ? (
+      {savedStudents.length < 1 ? (
         <Text align="center" fontWeight={800}>
           No Student Information Entered
         </Text>
       ) : (
         <>
-          {students.map((item, index) => (
+          {savedStudents.map((item, index) => (
             <Flex
               width="95%"
               mb={2}

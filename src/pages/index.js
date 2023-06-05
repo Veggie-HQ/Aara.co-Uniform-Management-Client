@@ -1,7 +1,7 @@
 import Item from "@/components/Item";
-import Login from "@/components/Login";
 import UserLogin from "@/components/Login/Login";
 import { auth, firestore } from "@/firebase/clientApp";
+import useStudentInfo from "@/hooks/useStudentInfo";
 import { useStateContext } from "@/lib/context";
 import { Box, Container, Flex, Spinner, Text } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -16,17 +16,17 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [user] = useAuthState(auth);
 
-  console.log(user);
+  const { savedStudents } = useStudentInfo();
 
   const onChange = (e) => {
     if (e.target.value >= 0) {
       setStudent((prev) => ({
         ...prev,
-        name: students[e.target.value].name,
-        gender: students[e.target.value].gender,
-        goingToClass: students[e.target.value].goingToClass,
+        name: savedStudents[e.target.value].name,
+        gender: savedStudents[e.target.value].gender,
+        goingToClass: savedStudents[e.target.value].goingToClass,
       }));
-      studentSelector(students[e.target.value]);
+      studentSelector(savedStudents[e.target.value]);
     }
   };
 
@@ -70,13 +70,12 @@ export default function Home() {
       <Flex mt="90px" direction="column">
         {!user ? (
           <Flex align="center" justify="center" direction="column">
-            {/* <Login /> */}
             <UserLogin />
           </Flex>
         ) : (
           <Container>
             <Flex zIndex={showCart | showUser ? -1 : 1} direction="column">
-              {students.length > 0 ? (
+              {savedStudents.length > 0 ? (
                 <>
                   <Text fontWeight={600} align="center" mt={2}>
                     Placing an order for:
@@ -88,7 +87,7 @@ export default function Home() {
                   >
                     <option value="-1">Select Student</option>
 
-                    {students.map((item, index) => (
+                    {savedStudents.map((item, index) => (
                       <>
                         <option key={index} value={index}>
                           {item.name}

@@ -112,13 +112,14 @@ const SignUpView = () => {
           </Button>
         </Stack>
         <Text
+          _active={{ textDecoration: "underline" }}
           _hover={{ textDecoration: "underline", cursor: "pointer" }}
           mt={5}
           align="center"
           fontSize="10pt"
           onClick={() => setLoginView("login")}
         >
-          Already have an Account? Log in here!
+          Already have an account? Log in here!
         </Text>
       </form>
     </>

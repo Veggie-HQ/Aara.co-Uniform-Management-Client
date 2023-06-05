@@ -1,4 +1,5 @@
 import { auth } from "@/firebase/clientApp";
+import { FIREBASE_ERRORS } from "@/firebase/errors";
 import { useStateContext } from "@/lib/context";
 import {
   Button,
@@ -81,19 +82,31 @@ const LoginView = () => {
               {error}
             </Text>
           )}
+          {usererror && (
+            <Text
+              fontWeight={600}
+              fontSize="12pt"
+              color="red"
+              mt={2}
+              align="center"
+            >
+              {FIREBASE_ERRORS[usererror.message]}
+            </Text>
+          )}
           <Button isLoading={loading} type="submit" bg="orange.200">
             Login
           </Button>
         </Stack>
 
         <Text
+          _active={{ textDecoration: "underline" }}
           _hover={{ textDecoration: "underline", cursor: "pointer" }}
           mt={5}
           align="center"
           fontSize="10pt"
           onClick={() => setLoginView("signup")}
         >
-          Don&apos;t have an Account? create one now!
+          Don&apos;t have an account? create one here!
         </Text>
       </form>
     </>

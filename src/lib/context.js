@@ -17,6 +17,7 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantitites] = useState(0);
   const [STUDENT, selectedStudent] = useState("");
   const [loginView, setLoginView] = useState("login");
+  const [phoneNumber, setPhoneNumber] = useState(null);
 
   const insertData = (data) => {
     setDATA((prev) => ({
@@ -113,6 +114,10 @@ export const StateContext = ({ children }) => {
     }
   };
 
+  const PhoneNumberHandler = (number) => {
+    setPhoneNumber(number);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -148,6 +153,8 @@ export const StateContext = ({ children }) => {
         setEditItems,
         loginView,
         setLoginView,
+        phoneNumber,
+        PhoneNumberHandler,
       }}
     >
       {children}
