@@ -4,10 +4,11 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 import Link from "next/link";
 
 import ClientView from "./ClientView";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/clientApp";
 
 export default function Nav() {
-  const { USER } = useStateContext();
-
+  const [user] = useAuthState(auth);
   return (
     <Flex
       height="80px"
@@ -25,7 +26,7 @@ export default function Nav() {
         </Link>
       </Box>
 
-      {USER && <ClientView />}
+      {user && <ClientView />}
     </Flex>
   );
 }

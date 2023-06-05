@@ -7,10 +7,13 @@ import OrderContainer from "./OrderContainer";
 import InfoModal from "@/components/InfoModal";
 
 import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function User() {
-  const { setShowUser, USER } = useStateContext();
+  const { setShowUser } = useStateContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [user] = useAuthState(auth);
 
   const signOutHandler = () => {
     signOut(auth)
@@ -50,19 +53,25 @@ export default function User() {
             borderRadius="7pt"
             direction="column"
           >
-            <Text>Parent Mobile Number</Text>
-            <Text fontWeight={800}>{USER.user.phoneNumber}</Text>
-            <hr />
-            <Text
-              fontStyle="italic"
-              fontSize="10pt"
-              mt={3}
-              color="orange.500"
-              onClick={signOutHandler}
-              cursor="pointer"
-            >
-              Change Number
+            <Text fontWeight={700} color="black" fontSize="12pt">
+              Registered Email Address
             </Text>
+
+            <Text fontWeight={800} color="orange.500">
+              {user.email}
+            </Text>
+
+            <Text fontWeight={700} color="black" fontSize="12pt" mt={3}>
+              Registered Mobile Number
+            </Text>
+            {user.phoneNumber ? (
+              <Text fontWeight={800}>{user.phoneNumber}</Text>
+            ) : (
+              <Text mt={3} color="red" fontWeight={800}>
+                No Phone Number Entered
+              </Text>
+            )}
+            <hr />
           </Flex>
 
           <Text fontWeight={800} mt={6}>
@@ -108,6 +117,18 @@ export default function User() {
             <OrderContainer />
             <InfoModal isOpen={isOpen} onClose={onClose} />
           </Flex>
+        </Flex>
+        <Flex
+          mt="50%"
+          p={3}
+          borderRadius="7pt"
+          bg="gray.300"
+          align="center"
+          justify="center"
+        >
+          <Button fontSize="12pt" fontWeight={700} onClick={signOutHandler}>
+            Log out
+          </Button>
         </Flex>
       </UserStyle>
     </UserWrapper>

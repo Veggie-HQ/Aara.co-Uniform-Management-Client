@@ -4,6 +4,8 @@ import { useStateContext } from "@/lib/context";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import Cart from "../Cart";
 import User from "../User";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/clientApp";
 const { AnimatePresence, motion } = require("framer-motion");
 
 const ClientView = () => {
@@ -15,6 +17,7 @@ const ClientView = () => {
     totalQuantities,
     USER,
   } = useStateContext();
+  const [user] = useAuthState(auth);
   return (
     <Flex
       height="80px"
@@ -26,7 +29,7 @@ const ClientView = () => {
       width="100%"
       zIndex={999}
     >
-      {USER && (
+      {user && (
         <>
           <div onClick={() => setShowUser(true)}>
             <Flex direction="column" align="center">
@@ -44,7 +47,7 @@ const ClientView = () => {
         </Link>
       </Box>
 
-      {USER && (
+      {user && (
         <>
           <div onClick={() => setShowCart(true)}>
             <Flex direction="column" align="center">

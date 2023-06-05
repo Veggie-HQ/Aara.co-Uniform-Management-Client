@@ -16,6 +16,7 @@ export const StateContext = ({ children }) => {
   const [DATA, setDATA] = useState([]);
   const [totalQuantities, setTotalQuantitites] = useState(0);
   const [STUDENT, selectedStudent] = useState("");
+  const [loginView, setLoginView] = useState("login");
 
   const insertData = (data) => {
     setDATA((prev) => ({
@@ -145,6 +146,8 @@ export const StateContext = ({ children }) => {
         setTotalPrice,
         editItems,
         setEditItems,
+        loginView,
+        setLoginView,
       }}
     >
       {children}

@@ -10,7 +10,6 @@ const Index = ({ item }) => {
 
   return (
     <Flex
-      width="90%"
       margin="0px auto"
       padding="10pt"
       height="100px"

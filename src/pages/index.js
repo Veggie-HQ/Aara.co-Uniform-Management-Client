@@ -1,17 +1,22 @@
 import Item from "@/components/Item";
 import Login from "@/components/Login";
+import UserLogin from "@/components/Login/Login";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useStateContext } from "@/lib/context";
-import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Spinner, Text } from "@chakra-ui/react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Home() {
   const { showCart, showUser, students, USER, studentSelector } =
     useStateContext();
   const [student, setStudent] = useState(students[0]);
   const [items, setItems] = useState([]);
+  const [user] = useAuthState(auth);
+
+  console.log(user);
 
   const onChange = (e) => {
     if (e.target.value >= 0) {
@@ -63,19 +68,14 @@ export default function Home() {
       </Head>
 
       <Flex mt="90px" direction="column">
-        {!USER ? (
+        {!user ? (
           <Flex align="center" justify="center" direction="column">
             {/* <Login /> */}
-            <Login />
+            <UserLogin />
           </Flex>
         ) : (
-          <>
-            <Flex
-              zIndex={showCart | showUser ? -1 : 1}
-              width="80%"
-              margin="0px auto"
-              direction="column"
-            >
+          <Container>
+            <Flex zIndex={showCart | showUser ? -1 : 1} direction="column">
               {students.length > 0 ? (
                 <>
                   <Text fontWeight={600} align="center" mt={2}>
@@ -205,7 +205,7 @@ export default function Home() {
                 )}
               </Box>
             )}
-          </>
+          </Container>
         )}
       </Flex>
     </>
